@@ -26,6 +26,11 @@ namespace PromVesClientPlatform
             _logger = logger;
             _serviceProvider = serviceProvider;
             InitializeComponent();
+            dataGridView1.AllowUserToAddRows = false;
+
+            // Создаём одну обычную строку
+            dataGridView1.Rows.Add();
+            //dataGridView1.AllowUserToAddRows = false;
             //Load += UserForm_Load;
         }
         //подгрузка данных для формы
@@ -42,7 +47,7 @@ namespace PromVesClientPlatform
             {
                 MessageBox.Show($"Ошибка получения списка пользователей из БД, причина: {result.Data}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else 
+            else
             {
                 //сохраняем полученные данные в List и выводим их в таблицу
                 _userList = result.Data;
@@ -57,6 +62,11 @@ namespace PromVesClientPlatform
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
         }
