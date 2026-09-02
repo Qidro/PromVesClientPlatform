@@ -75,7 +75,7 @@ namespace PromVesClientPlatform.Service.AuthorizationService
            
         }
         //метот создания пользователя в БД
-        public async Task<ServiceResult> CreateUserAsync(string Login, string Password, string Role)
+        public async Task<ServiceResult> CreateUserAsync(string Login, string Role, bool Active, string Password)
         {
            // string Role = "admin";
             string HashPassword = _hashPasswordService.getHashPasswordUser(Password);
@@ -85,7 +85,7 @@ namespace PromVesClientPlatform.Service.AuthorizationService
                 Name = Login,
                 Password = HashPassword,
                 Role = Role,
-                Active = true
+                Active = Active
             };
             try
             {
@@ -168,6 +168,94 @@ namespace PromVesClientPlatform.Service.AuthorizationService
                 return ServiceResult<List<UserDto>>.Fail("Не удалось получить список пользователей" + ex.Message);
             }
             //return ServiceResult<UserDto>.Fail("Тяжело");
+        }
+        //Метод улаения пользователя
+        public async Task<ServiceResult> DeleateUserAsync(Guid Id)
+        {
+            try 
+            {
+                //поиск пользователя
+                var user = await _dbContext.Users.FindAsync(Id);
+                //проверка есть ли запись в бд с заданным параметром
+                if (user == null)
+                {
+                    return ServiceResult.Fail("Пользователь не найден");
+                }
+                else
+                {
+                    //удаление пользователя
+                    _dbContext.Users.Remove(user);
+                    await _dbContext.SaveChangesAsync();
+
+                    return ServiceResult.Ok();
+                }
+            }
+            catch (TimeoutException ex)
+            {
+                _logger.LogError(ex, "Превышено время ожидания при удалении пользователя.");
+
+                return ServiceResult.Fail("Превышено время ожидания при удалении пользователя.");
+            }
+            catch (NpgsqlException ex)
+            {
+                _logger.LogError(ex, "Ошибка базы данных при удалении пользователя.");
+
+                return ServiceResult.Fail("Ошибка базы данных.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Неизвестная ошибка при удалении пользователя.");
+
+                return ServiceResult.Fail("Не удалось удалить пользователя.");
+            }
+        }
+        //метод получения данных пользователя
+        public async Task<ServiceResult<UserDto>> GetUserAsync(Guid Id)
+        {
+            try 
+            {
+                //получаем пользовтеля по Id
+                var user = await _dbContext.Users
+                .Where(x => x.Id == Id)
+                .Select(u => new UserDto
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Role = u.Role,
+                    Active = u.Active
+                }).FirstOrDefaultAsync();
+                //проверка на поиск пользователя
+                if (user == null)
+                {
+                    return ServiceResult<UserDto>.Fail("Пользователь не найден");
+                }
+                return ServiceResult<UserDto>.Ok(user);
+                
+            }
+            catch (TimeoutException ex)
+            {
+                _logger.LogError(ex, "Превышено время ожидания при получении данных пользователя.");
+
+                return ServiceResult<UserDto>.Fail("превышено время ожидания при получении данных пользователя.");
+            }
+            catch (NpgsqlException ex)
+            {
+                _logger.LogError(ex, "Ошибка базы данных при получении данных пользователя.");
+
+                return ServiceResult<UserDto>.Fail("ошибка базы данных.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Неизвестная ошибка при получении данных пользователя.");
+
+                return ServiceResult<UserDto>.Fail("не удалось получить данных пользователя.");
+            }
+
+        }
+
+        public async Task<ServiceResult> ChangeUserAsync()
+        {
+            return ServiceResult.Ok();
         }
     }
 }

@@ -30,13 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserForm));
             usersDataGridView = new DataGridView();
-            dataGridView1 = new DataGridView();
+            createUserDataGridView = new DataGridView();
             loginColumn = new DataGridViewTextBoxColumn();
             roleColimn = new DataGridViewComboBoxColumn();
             activeColumn = new DataGridViewCheckBoxColumn();
             passwordColumn = new DataGridViewTextBoxColumn();
+            createUserButton = new Button();
+            changeUserButton = new Button();
+            deleateUserButton = new Button();
             ((System.ComponentModel.ISupportInitialize)usersDataGridView).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)createUserDataGridView).BeginInit();
             SuspendLayout();
             // 
             // usersDataGridView
@@ -50,16 +53,16 @@
             usersDataGridView.TabIndex = 0;
             usersDataGridView.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // dataGridView1
+            // createUserDataGridView
             // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { loginColumn, roleColimn, activeColumn, passwordColumn });
-            dataGridView1.Location = new Point(12, 12);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(642, 57);
-            dataGridView1.TabIndex = 1;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
+            createUserDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            createUserDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            createUserDataGridView.Columns.AddRange(new DataGridViewColumn[] { loginColumn, roleColimn, activeColumn, passwordColumn });
+            createUserDataGridView.Location = new Point(12, 12);
+            createUserDataGridView.Name = "createUserDataGridView";
+            createUserDataGridView.Size = new Size(642, 57);
+            createUserDataGridView.TabIndex = 1;
+            createUserDataGridView.CellContentClick += dataGridView1_CellContentClick_1;
             // 
             // loginColumn
             // 
@@ -84,29 +87,70 @@
             passwordColumn.Resizable = DataGridViewTriState.True;
             passwordColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
+            // createUserButton
+            // 
+            createUserButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            createUserButton.Location = new Point(689, 12);
+            createUserButton.Name = "createUserButton";
+            createUserButton.Size = new Size(186, 39);
+            createUserButton.TabIndex = 2;
+            createUserButton.Text = "Добавить пользователя";
+            createUserButton.UseVisualStyleBackColor = true;
+            createUserButton.Click += createUserButton_Click;
+            // 
+            // changeUserButton
+            // 
+            changeUserButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            changeUserButton.Location = new Point(689, 57);
+            changeUserButton.Name = "changeUserButton";
+            changeUserButton.Size = new Size(186, 40);
+            changeUserButton.TabIndex = 3;
+            changeUserButton.Text = "Изменить пользователя";
+            changeUserButton.UseVisualStyleBackColor = true;
+            changeUserButton.Click += changeUserButton_Click;
+            // 
+            // deleateUserButton
+            // 
+            deleateUserButton.BackColor = Color.Red;
+            deleateUserButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            deleateUserButton.ForeColor = Color.White;
+            deleateUserButton.Location = new Point(689, 103);
+            deleateUserButton.Name = "deleateUserButton";
+            deleateUserButton.Size = new Size(186, 40);
+            deleateUserButton.TabIndex = 4;
+            deleateUserButton.Text = "Удалить пользователя";
+            deleateUserButton.UseVisualStyleBackColor = false;
+            deleateUserButton.Click += deleateUserButton_Click;
+            // 
             // UserForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(922, 273);
-            Controls.Add(dataGridView1);
+            Controls.Add(deleateUserButton);
+            Controls.Add(changeUserButton);
+            Controls.Add(createUserButton);
+            Controls.Add(createUserDataGridView);
             Controls.Add(usersDataGridView);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "UserForm";
             Text = "UserForm";
             Load += UserForm_Load;
             ((System.ComponentModel.ISupportInitialize)usersDataGridView).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)createUserDataGridView).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private DataGridView usersDataGridView;
-        private DataGridView dataGridView1;
+        private DataGridView createUserDataGridView;
         private DataGridViewTextBoxColumn loginColumn;
         private DataGridViewComboBoxColumn roleColimn;
         private DataGridViewCheckBoxColumn activeColumn;
         private DataGridViewTextBoxColumn passwordColumn;
+        private Button createUserButton;
+        private Button changeUserButton;
+        private Button deleateUserButton;
     }
 }
