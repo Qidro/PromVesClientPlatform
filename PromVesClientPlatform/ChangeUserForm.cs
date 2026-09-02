@@ -17,6 +17,10 @@ namespace PromVesClientPlatform
     public partial class ChangeUserForm : Form
     {
         private Guid _userId;
+        private string userName;
+        private string userPassword;
+        private string userRole;
+        private bool userActive;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<ChangeUserForm> _logger;
         private readonly UserService _userService;
@@ -72,10 +76,46 @@ namespace PromVesClientPlatform
                 MessageBox.Show($"Ошибка получения данных пользователя, причина: {result.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void changeUserButton_Click(object sender, EventArgs e)
+        //метод кнопки обнолвения данных пользователя
+        private async void changeUserButton_Click(object sender, EventArgs e)
         {
-
+            //проверка корректного вода пользователя
+            if (String.IsNullOrWhiteSpace(loginTextBox.Text))
+            {
+                MessageBox.Show("Введите корректный логин пользователя", "Предупрждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            //проверка корректного ввода пароля
+            //if (String.IsNullOrWhiteSpace(passwordTextBox.Text))
+            //{
+            //    MessageBox.Show("Введите корректный пароль пользователя", "Предупрждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
+            //выбор активности
+            if (activeComboBox.Text == "Активный")
+            {
+                userActive = true;
+            }
+            else
+            {
+                userActive = false;
+            }
+            //запись в поля результаов
+            userName = loginTextBox.Text;
+            userPassword = passwordTextBox.Text;
+            userRole = roleComboBox.Text;
+            //вызов метода по изменению данных пользователя
+            var result = await _userService.ChangeUserAsync(_userId, userName, userRole, userActive, userPassword);
+            //вывод результата
+            if (result.Success == true)
+            {
+                MessageBox.Show("Пользователь был успешно обновлен", "Инфомарция", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await FillingDataUser();
+            }
+            else
+            {
+                MessageBox.Show($"Пользователь не был обновлен, причина: {result.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

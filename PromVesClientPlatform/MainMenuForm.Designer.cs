@@ -117,8 +117,10 @@
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(menuStrip1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "MainMenuForm";
             Text = "Главное меню";
             menuStrip1.ResumeLayout(false);

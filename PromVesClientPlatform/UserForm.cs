@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.ApplicationServices;
 using PromVesClientPlatform.DTO;
 using PromVesClientPlatform.Model;
+using PromVesClientPlatform.Service;
 using PromVesClientPlatform.Service.AuthorizationService;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,11 @@ namespace PromVesClientPlatform
         private readonly UserService _userService;
         private readonly ILogger<UserForm> _logger;
         private readonly IServiceProvider _serviceProvider;
+        private readonly CurrentUserService _currentUserService;
         private List<UserDto> _userList;
-        public UserForm(UserService userService, ILogger<UserForm> logger, IServiceProvider serviceProvider)
+        public UserForm(UserService userService, ILogger<UserForm> logger, IServiceProvider serviceProvider, CurrentUserService currentUserService)
         {
+            _currentUserService = currentUserService;
             _userService = userService;
             _logger = logger;
             _serviceProvider = serviceProvider;
@@ -121,12 +124,19 @@ namespace PromVesClientPlatform
         //метод удаления пользователей
         private async void deleateUserButton_Click(object sender, EventArgs e)
         {
+
             if (usersDataGridView.CurrentCell != null)
             {
                 //получаем номер строку
                 int rowIndex = usersDataGridView.CurrentCell.RowIndex;
                 //получаем Id пользователя
                 Guid value = (Guid)usersDataGridView.Rows[rowIndex].Cells[0].Value;
+                //проверка на удаление самого себя
+                if (_currentUserService.CurrentUser?.Id == value)
+                {
+                    MessageBox.Show("Нельзя удалить самого себя", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 //вызываем метод по удалению пользолвателя
                 var result = await _userService.DeleateUserAsync(value);
                 if (result.Success == true)
@@ -151,6 +161,11 @@ namespace PromVesClientPlatform
                 int rowIndex = usersDataGridView.CurrentCell.RowIndex;
                 //получаем Id пользователя
                 Guid value = (Guid)usersDataGridView.Rows[rowIndex].Cells[0].Value;
+                if (_currentUserService.CurrentUser?.Id == value)
+                {
+                    MessageBox.Show("Нельзя изменить самого себя", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 var form = ActivatorUtilities.CreateInstance<ChangeUserForm>(
                 _serviceProvider,
                 value);

@@ -252,10 +252,45 @@ namespace PromVesClientPlatform.Service.AuthorizationService
             }
 
         }
-
-        public async Task<ServiceResult> ChangeUserAsync()
+        //метод по изменению данных пользователя
+        public async Task<ServiceResult> ChangeUserAsync(Guid id, string login, string role, bool active, string? password = null)
         {
-            return ServiceResult.Ok();
+            try 
+            {
+                //поиск пользователя по Id
+                var user = await _dbContext.Users.FindAsync(id);
+                if (user == null)
+                {
+                    return ServiceResult.Fail("пользователь не найден");
+                }
+                user.Name = login;
+                user.Role = role;
+                user.Active = active;
+                //проверка на пустой пароль
+                if (!string.IsNullOrWhiteSpace(password))
+                {
+                    user.Password = _hashPasswordService.getHashPasswordUser(password);
+                }
+                await _dbContext.SaveChangesAsync();
+                return ServiceResult.Ok();
+            }
+            catch (TimeoutException ex)
+            {
+                _logger.LogError(ex, "Ошибка ожидания ответа от БД");
+                return ServiceResult.Fail("Ошибка ожидания ответа от БД: " + ex.Message);
+            }
+            catch (NpgsqlException ex)
+            {
+                _logger.LogError(ex, "Ошибка бд");
+                return ServiceResult.Fail("Ошибка БД: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка получения списка пользователей");
+
+                return ServiceResult.Fail("Не удалось получить список пользователей" + ex.Message);
+            }
+
         }
     }
 }

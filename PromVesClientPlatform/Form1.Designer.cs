@@ -96,7 +96,9 @@
             Controls.Add(label2);
             Controls.Add(label);
             Controls.Add(button1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Form1";
             Text = "Авторизация";
             ResumeLayout(false);

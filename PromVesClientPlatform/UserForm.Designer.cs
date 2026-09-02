@@ -132,7 +132,9 @@
             Controls.Add(createUserButton);
             Controls.Add(createUserDataGridView);
             Controls.Add(usersDataGridView);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "UserForm";
             Text = "UserForm";
             Load += UserForm_Load;

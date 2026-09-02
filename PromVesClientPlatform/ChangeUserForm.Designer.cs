@@ -51,6 +51,7 @@
             // 
             // passwordTextBox
             // 
+            passwordTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             passwordTextBox.Location = new Point(257, 33);
             passwordTextBox.Multiline = true;
             passwordTextBox.Name = "passwordTextBox";
@@ -145,7 +146,9 @@
             Controls.Add(activeComboBox);
             Controls.Add(passwordTextBox);
             Controls.Add(loginTextBox);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "ChangeUserForm";
             Text = "Редактироваине пользовтаеля";
             Load += ChangeUserForm_Load;
