@@ -29,34 +29,36 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptForm));
-            dataGridView1 = new DataGridView();
+            dataGridViewReceipts = new DataGridView();
             dataGridView2 = new DataGridView();
             label1 = new Label();
             groupBox1 = new GroupBox();
+            checkBox1 = new CheckBox();
+            textBox1 = new TextBox();
+            label3 = new Label();
+            label2 = new Label();
+            dateTimePicker2 = new DateTimePicker();
+            dateTimePicker1 = new DateTimePicker();
             btnReportFilter = new Button();
             btnResetFilter = new Button();
             btnSaveReceipt = new Button();
             btnPrintReceipt = new Button();
             btnDeleteCard = new Button();
             btnDeleteReceipt = new Button();
-            dateTimePicker1 = new DateTimePicker();
-            dateTimePicker2 = new DateTimePicker();
-            label2 = new Label();
-            label3 = new Label();
-            textBox1 = new TextBox();
-            checkBox1 = new CheckBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewReceipts).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridViewReceipts
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 12);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(949, 221);
-            dataGridView1.TabIndex = 0;
+            dataGridViewReceipts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewReceipts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewReceipts.Location = new Point(12, 12);
+            dataGridViewReceipts.Name = "dataGridViewReceipts";
+            dataGridViewReceipts.ReadOnly = true;
+            dataGridViewReceipts.Size = new Size(949, 221);
+            dataGridViewReceipts.TabIndex = 0;
             // 
             // dataGridView2
             // 
@@ -91,6 +93,55 @@
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Фильтр квитанций";
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(22, 112);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(80, 19);
+            checkBox1.TabIndex = 6;
+            checkBox1.Text = "Оператор";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(133, 108);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(166, 23);
+            textBox1.TabIndex = 5;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(81, 72);
+            label3.Name = "label3";
+            label3.Size = new Size(21, 15);
+            label3.TabIndex = 3;
+            label3.Text = "по";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(61, 28);
+            label2.Name = "label2";
+            label2.Size = new Size(41, 15);
+            label2.TabIndex = 2;
+            label2.Text = "Дата с";
+            // 
+            // dateTimePicker2
+            // 
+            dateTimePicker2.Location = new Point(133, 66);
+            dateTimePicker2.Name = "dateTimePicker2";
+            dateTimePicker2.Size = new Size(166, 23);
+            dateTimePicker2.TabIndex = 1;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(133, 22);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(166, 23);
+            dateTimePicker1.TabIndex = 0;
             // 
             // btnReportFilter
             // 
@@ -156,55 +207,6 @@
             btnDeleteReceipt.Text = "Удалить квитанцию";
             btnDeleteReceipt.UseVisualStyleBackColor = false;
             // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Location = new Point(133, 22);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(166, 23);
-            dateTimePicker1.TabIndex = 0;
-            // 
-            // dateTimePicker2
-            // 
-            dateTimePicker2.Location = new Point(133, 66);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(166, 23);
-            dateTimePicker2.TabIndex = 1;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(61, 28);
-            label2.Name = "label2";
-            label2.Size = new Size(41, 15);
-            label2.TabIndex = 2;
-            label2.Text = "Дата с";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(81, 72);
-            label3.Name = "label3";
-            label3.Size = new Size(21, 15);
-            label3.TabIndex = 3;
-            label3.Text = "по";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(133, 108);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(166, 23);
-            textBox1.TabIndex = 5;
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(22, 112);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(80, 19);
-            checkBox1.TabIndex = 6;
-            checkBox1.Text = "Оператор";
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
             // ReceiptForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -219,12 +221,12 @@
             Controls.Add(groupBox1);
             Controls.Add(label1);
             Controls.Add(dataGridView2);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridViewReceipts);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ReceiptForm";
             Text = "Квитанции";
             Load += ReceiptForm_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewReceipts).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -234,7 +236,7 @@
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dataGridViewReceipts;
         private DataGridView dataGridView2;
         private Label label1;
         private GroupBox groupBox1;
