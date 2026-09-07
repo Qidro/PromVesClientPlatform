@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PromVesClientPlatform.Service;
 using PromVesClientPlatform.Service.AuthorizationService;
+using PromVesClientPlatform.Service.ComPortSettingService;
 using PromVesClientPlatform.Service.UserService;
 
 namespace PromVesClientPlatform
@@ -27,10 +28,11 @@ namespace PromVesClientPlatform
             services.AddTransient<Form1>();
             services.AddTransient<MainMenuForm>();
             services.AddTransient<UserForm>();
+            services.AddTransient<ComPortSettingPort>();
             //регистрация сервисов
             services.AddScoped<UserService>();
             services.AddScoped<HashPasswordService>();
-
+            services.AddScoped<ComPortSettingService>();
 
             //регистрация одного экземпляра, чтобы все формы работали именно с ним
             services.AddSingleton<CurrentUserService>();

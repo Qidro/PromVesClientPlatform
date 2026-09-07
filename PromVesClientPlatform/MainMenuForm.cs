@@ -31,7 +31,9 @@ namespace PromVesClientPlatform
 
         private void setupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            //открытие формы пользователей
+            var form = _serviceProvider.GetRequiredService<ComPortSettingPort>();
+            form.ShowDialog();
         }
 
         private void userToolStripMenuItem_Click(object sender, EventArgs e)

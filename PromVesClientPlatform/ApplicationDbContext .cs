@@ -17,5 +17,7 @@ namespace PromVesClientPlatform
         }
 
         public DbSet<User> Users => Set<User>();
+        public DbSet<Receipt> Receipts => Set<Receipt>();
+        public DbSet<Weighing> Weighings => Set<Weighing>();
     }
 }

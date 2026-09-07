@@ -161,6 +161,7 @@ namespace PromVesClientPlatform
                 int rowIndex = usersDataGridView.CurrentCell.RowIndex;
                 //получаем Id пользователя
                 Guid value = (Guid)usersDataGridView.Rows[rowIndex].Cells[0].Value;
+                //проверка на измененение самого себя
                 if (_currentUserService.CurrentUser?.Id == value)
                 {
                     MessageBox.Show("Нельзя изменить самого себя", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
