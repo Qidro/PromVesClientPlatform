@@ -39,7 +39,7 @@ namespace PromVesClientPlatform
         private async Task GetSettingComPort()
         {
             var result = await _comPortSettingService.GetSavedSettingComPort();
-            if (result.Success == false)
+            if (result.Success == false || result.Data.SerialPorts.Count < 1)
             {
                 MessageBox.Show($"Произошла ошибка получения данных с файла конфигурации с com порта, причина: {result.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 standartSetting();
@@ -100,8 +100,10 @@ namespace PromVesClientPlatform
                 StopBits = Enum.Parse<StopBits>(stopBitsComboBox.SelectedItem.ToString()),
                 Handshake = Enum.Parse<Handshake>(handshakeComboBox.SelectedItem.ToString())
             };
+            var configuration = new ConfigurationSetting();
+            configuration.SerialPorts.Add(settings);
             //вызываем метод сохранения
-            var result = await _comPortSettingService.SaveAsync(settings);
+            var result = await _comPortSettingService.SaveAsync(configuration);
             //проверка выполнения
             if (result.Success == true)
             {

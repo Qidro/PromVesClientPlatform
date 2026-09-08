@@ -72,7 +72,7 @@ namespace PromVesClientPlatform.Service.ComPortSettingService
             return (ports);
         }
         // Сохраняет настройки.
-        public async Task<ServiceResult> SaveAsync(SerialPortSettings configuration)
+        public async Task<ServiceResult> SaveAsync(ConfigurationSetting configuration)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace PromVesClientPlatform.Service.ComPortSettingService
                     configuration,
                     _jsonOptions);
 
-                File.WriteAllTextAsync(_serverSettingsPath, json);
+                await File.WriteAllTextAsync(_serverSettingsPath, json);
 
                 return ServiceResult.Ok();
             }

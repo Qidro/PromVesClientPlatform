@@ -34,12 +34,14 @@
             label2 = new Label();
             textBoxLogin = new TextBox();
             textBoxPassword = new TextBox();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // button1
             // 
             button1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            button1.Location = new Point(255, 329);
+            button1.Location = new Point(275, 482);
             button1.Name = "button1";
             button1.Size = new Size(390, 50);
             button1.TabIndex = 0;
@@ -51,7 +53,7 @@
             // 
             label.AutoSize = true;
             label.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label.Location = new Point(31, 198);
+            label.Location = new Point(51, 351);
             label.Name = "label";
             label.Size = new Size(189, 37);
             label.TabIndex = 1;
@@ -61,7 +63,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label2.Location = new Point(31, 275);
+            label2.Location = new Point(51, 428);
             label2.Name = "label2";
             label2.Size = new Size(110, 37);
             label2.TabIndex = 2;
@@ -70,7 +72,7 @@
             // textBoxLogin
             // 
             textBoxLogin.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            textBoxLogin.Location = new Point(255, 193);
+            textBoxLogin.Location = new Point(275, 346);
             textBoxLogin.Multiline = true;
             textBoxLogin.Name = "textBoxLogin";
             textBoxLogin.Size = new Size(390, 50);
@@ -79,18 +81,28 @@
             // textBoxPassword
             // 
             textBoxPassword.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            textBoxPassword.Location = new Point(255, 262);
+            textBoxPassword.Location = new Point(275, 415);
             textBoxPassword.Multiline = true;
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.PasswordChar = '*';
             textBoxPassword.Size = new Size(390, 50);
             textBoxPassword.TabIndex = 4;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(0, -2);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(877, 294);
+            pictureBox1.TabIndex = 5;
+            pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(877, 585);
+            Controls.Add(pictureBox1);
             Controls.Add(textBoxPassword);
             Controls.Add(textBoxLogin);
             Controls.Add(label2);
@@ -101,6 +113,8 @@
             MaximizeBox = false;
             Name = "Form1";
             Text = "Авторизация";
+            Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -112,5 +126,6 @@
         private Label label2;
         private TextBox textBoxLogin;
         private TextBox textBoxPassword;
+        private PictureBox pictureBox1;
     }
 }

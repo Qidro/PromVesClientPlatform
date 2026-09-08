@@ -1,13 +1,13 @@
-﻿using System;
+﻿using PromVesClientPlatform.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace PromVesClientPlatform.Model
+namespace PromVesClientPlatform.DTO
 {
-    public class Weighing
+    public class CardsDto
     {
         public Guid Id { get; set; }
         //группа животных
@@ -34,10 +34,5 @@ namespace PromVesClientPlatform.Model
         //Дата взвешивания (текущее)
         public DateTime WeighingDate { get; set; }
 
-        // Внешний ключ
-        public Guid ReceiptId { get; set; }
-
-        // Навигационное свойство
-        public Receipt Receipt { get; set; } = null!;
     }
 }

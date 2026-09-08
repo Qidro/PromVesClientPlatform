@@ -15,6 +15,7 @@ namespace PromVesClientPlatform
             _serviceProvider = serviceProvider;
             _currentUserService = currentUserService;
             InitializeComponent();
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
         }
         private string Login;
         private string Password;
@@ -48,6 +49,11 @@ namespace PromVesClientPlatform
                 var form = _serviceProvider.GetRequiredService<MainMenuForm>();
                 form.ShowDialog();
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

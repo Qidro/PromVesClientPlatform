@@ -37,7 +37,7 @@ namespace PromVesClientPlatform.Service.ReceiptService
                   .ToListAsync();
                 return ServiceResult<List<ReceiptDto>>.Ok(ReceiptList);
             }
-             catch (TimeoutException ex)
+            catch (TimeoutException ex)
             {
                 _logger.LogError("Привышенно время ожидания ответа: " + ex.Message);
                 return ServiceResult<List<ReceiptDto>>.Fail("БД не отвечает, причина: " + ex.Message);
@@ -51,6 +51,95 @@ namespace PromVesClientPlatform.Service.ReceiptService
             {
                 _logger.LogError("Неизвестная ошибка БД: " + ex.Message);
                 return ServiceResult<List<ReceiptDto>>.Fail("Неизвестная ошибка БД: " + ex.Message);
+            }
+        }
+        //метод получения карточек взвешивания
+        public async Task<ServiceResult<List<CardsDto>>> GetCardsAsync(Guid Id)
+        {
+            try 
+            {
+                //заполняем лист данными
+                var cardsList = await _dbContext.Weighings
+                  .AsNoTracking()
+                  .Where(x => x.ReceiptId == Id)
+                  .Select(w => new CardsDto
+                  {
+                      Id = w.Id,
+                      GroupAnimals = w.GroupAnimals,
+                      Department = w.Department,
+                      Brigade = w.Brigade,
+                      ResponsibleEmployee = w.ResponsibleEmployee,
+                      AnimalNumber = w.AnimalNumber,
+                      Quantity = w.Quantity,
+                      PreviousWeigh = w.PreviousWeigh,
+                      DatePreviousWeighing = w.DatePreviousWeighing,
+                      CurrentWeighing = w.CurrentWeighing,
+                      WeightGain = w.WeightGain,
+                      WeighingDate = w.WeighingDate
+                  })
+                  .ToListAsync();
+                return ServiceResult<List<CardsDto>>.Ok(cardsList);
+            }
+            catch (TimeoutException ex)
+            {
+                _logger.LogError("Привышенно время ожидания ответа: " + ex.Message);
+                return ServiceResult<List<CardsDto>>.Fail("БД не отвечает, причина: " + ex.Message);
+            }
+            catch (NpgsqlException ex)
+            {
+                _logger.LogError("Ошибка сервера БД: " + ex.Message);
+                return ServiceResult<List<CardsDto>>.Fail("Ошибка сервера БД: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Неизвестная ошибка БД: " + ex.Message);
+                return ServiceResult<List<CardsDto>>.Fail("Неизвестная ошибка БД: " + ex.Message);
+            }
+        }
+        //метод удаления карточки взвешивания
+        public async Task<ServiceResult> deletingCard(Guid Id)
+        {
+            try 
+            {
+                //поиск каточки по id
+                var weighing = await _dbContext.Weighings.FindAsync(Id);
+                //проверяем карточку, есть ли она или нет
+                if (weighing == null)
+                {
+                    return ServiceResult.Fail("Карточки не была найдена");
+                }
+                //удаляем карточку взвешивания
+                _dbContext.Weighings.Remove(weighing);
+                await _dbContext.SaveChangesAsync();
+                return ServiceResult.Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка удаления карточки");
+                return ServiceResult.Fail("Ошибка удаления.");
+            }
+        }
+        //метод удаления квитанции взвешивания
+        public async Task<ServiceResult> deletingReceipt(Guid Id)
+        {
+            try
+            {
+                //поиск каточки по id
+                var receipt = await _dbContext.Receipts.FindAsync(Id);
+                //проверяем карточку, есть ли она или нет
+                if (receipt == null)
+                {
+                    return ServiceResult.Fail("Квитанция не была найдена");
+                }
+                //удаляем карточку взвешивания
+                _dbContext.Receipts.Remove(receipt);
+                await _dbContext.SaveChangesAsync();
+                return ServiceResult.Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка удаления квитанции");
+                return ServiceResult.Fail("Ошибка удаления.");
             }
         }
     }
