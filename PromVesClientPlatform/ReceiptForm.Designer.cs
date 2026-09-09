@@ -33,6 +33,18 @@
             dataGridViewСards = new DataGridView();
             receiptInfoLabel = new Label();
             groupBox1 = new GroupBox();
+            brigadeСheckBox = new CheckBox();
+            brigadeTextBox = new TextBox();
+            quantityCheckBox = new CheckBox();
+            quantityTextBox = new TextBox();
+            animalNumberCheckBox = new CheckBox();
+            animalNumberTextBox = new TextBox();
+            responsibleEmployeeCheckBox = new CheckBox();
+            responsibleEmployeeTextBox = new TextBox();
+            departmentCheckBox = new CheckBox();
+            departmentTextBox = new TextBox();
+            animalsGroupCheckBox = new CheckBox();
+            animalsGroupTextBox = new TextBox();
             operatorCheckBox = new CheckBox();
             operatorTextBox = new TextBox();
             label3 = new Label();
@@ -45,16 +57,6 @@
             btnPrintReceipt = new Button();
             btnDeleteCard = new Button();
             btnDeleteReceipt = new Button();
-            animalsGroupCheckBox = new CheckBox();
-            animalsGroupTextBox = new TextBox();
-            checkBox3 = new CheckBox();
-            textBox3 = new TextBox();
-            checkBox4 = new CheckBox();
-            textBox4 = new TextBox();
-            checkBox5 = new CheckBox();
-            textBox5 = new TextBox();
-            checkBox6 = new CheckBox();
-            textBox6 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewReceipts).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewСards).BeginInit();
             groupBox1.SuspendLayout();
@@ -92,14 +94,16 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(checkBox6);
-            groupBox1.Controls.Add(textBox6);
-            groupBox1.Controls.Add(checkBox5);
-            groupBox1.Controls.Add(textBox5);
-            groupBox1.Controls.Add(checkBox4);
-            groupBox1.Controls.Add(textBox4);
-            groupBox1.Controls.Add(checkBox3);
-            groupBox1.Controls.Add(textBox3);
+            groupBox1.Controls.Add(brigadeСheckBox);
+            groupBox1.Controls.Add(brigadeTextBox);
+            groupBox1.Controls.Add(quantityCheckBox);
+            groupBox1.Controls.Add(quantityTextBox);
+            groupBox1.Controls.Add(animalNumberCheckBox);
+            groupBox1.Controls.Add(animalNumberTextBox);
+            groupBox1.Controls.Add(responsibleEmployeeCheckBox);
+            groupBox1.Controls.Add(responsibleEmployeeTextBox);
+            groupBox1.Controls.Add(departmentCheckBox);
+            groupBox1.Controls.Add(departmentTextBox);
             groupBox1.Controls.Add(animalsGroupCheckBox);
             groupBox1.Controls.Add(animalsGroupTextBox);
             groupBox1.Controls.Add(operatorCheckBox);
@@ -114,6 +118,109 @@
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Фильтр квитанций";
+            groupBox1.Enter += groupBox1_Enter;
+            // 
+            // brigadeСheckBox
+            // 
+            brigadeСheckBox.AutoSize = true;
+            brigadeСheckBox.Location = new Point(22, 201);
+            brigadeСheckBox.Name = "brigadeСheckBox";
+            brigadeСheckBox.Size = new Size(70, 19);
+            brigadeСheckBox.TabIndex = 18;
+            brigadeСheckBox.Text = "Бригада";
+            brigadeСheckBox.UseVisualStyleBackColor = true;
+            // 
+            // brigadeTextBox
+            // 
+            brigadeTextBox.Location = new Point(202, 201);
+            brigadeTextBox.Name = "brigadeTextBox";
+            brigadeTextBox.Size = new Size(166, 23);
+            brigadeTextBox.TabIndex = 17;
+            // 
+            // quantityCheckBox
+            // 
+            quantityCheckBox.AutoSize = true;
+            quantityCheckBox.Location = new Point(22, 285);
+            quantityCheckBox.Name = "quantityCheckBox";
+            quantityCheckBox.Size = new Size(150, 19);
+            quantityCheckBox.TabIndex = 16;
+            quantityCheckBox.Text = "Количество животных";
+            quantityCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // quantityTextBox
+            // 
+            quantityTextBox.Location = new Point(202, 287);
+            quantityTextBox.Name = "quantityTextBox";
+            quantityTextBox.Size = new Size(166, 23);
+            quantityTextBox.TabIndex = 15;
+            // 
+            // animalNumberCheckBox
+            // 
+            animalNumberCheckBox.AutoSize = true;
+            animalNumberCheckBox.Location = new Point(22, 256);
+            animalNumberCheckBox.Name = "animalNumberCheckBox";
+            animalNumberCheckBox.Size = new Size(168, 19);
+            animalNumberCheckBox.TabIndex = 14;
+            animalNumberCheckBox.Text = "Номер станка/животного";
+            animalNumberCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // animalNumberTextBox
+            // 
+            animalNumberTextBox.Location = new Point(202, 258);
+            animalNumberTextBox.Name = "animalNumberTextBox";
+            animalNumberTextBox.Size = new Size(166, 23);
+            animalNumberTextBox.TabIndex = 13;
+            // 
+            // responsibleEmployeeCheckBox
+            // 
+            responsibleEmployeeCheckBox.AutoSize = true;
+            responsibleEmployeeCheckBox.Location = new Point(22, 227);
+            responsibleEmployeeCheckBox.Name = "responsibleEmployeeCheckBox";
+            responsibleEmployeeCheckBox.Size = new Size(149, 19);
+            responsibleEmployeeCheckBox.TabIndex = 12;
+            responsibleEmployeeCheckBox.Text = "За кем прикрепленны";
+            responsibleEmployeeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // responsibleEmployeeTextBox
+            // 
+            responsibleEmployeeTextBox.Location = new Point(202, 229);
+            responsibleEmployeeTextBox.Name = "responsibleEmployeeTextBox";
+            responsibleEmployeeTextBox.Size = new Size(166, 23);
+            responsibleEmployeeTextBox.TabIndex = 11;
+            // 
+            // departmentCheckBox
+            // 
+            departmentCheckBox.AutoSize = true;
+            departmentCheckBox.Location = new Point(22, 170);
+            departmentCheckBox.Name = "departmentCheckBox";
+            departmentCheckBox.Size = new Size(85, 19);
+            departmentCheckBox.TabIndex = 10;
+            departmentCheckBox.Text = "Отделение";
+            departmentCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // departmentTextBox
+            // 
+            departmentTextBox.Location = new Point(202, 172);
+            departmentTextBox.Name = "departmentTextBox";
+            departmentTextBox.Size = new Size(166, 23);
+            departmentTextBox.TabIndex = 9;
+            // 
+            // animalsGroupCheckBox
+            // 
+            animalsGroupCheckBox.AutoSize = true;
+            animalsGroupCheckBox.Location = new Point(22, 141);
+            animalsGroupCheckBox.Name = "animalsGroupCheckBox";
+            animalsGroupCheckBox.Size = new Size(124, 19);
+            animalsGroupCheckBox.TabIndex = 8;
+            animalsGroupCheckBox.Text = "Группа животных";
+            animalsGroupCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // animalsGroupTextBox
+            // 
+            animalsGroupTextBox.Location = new Point(202, 143);
+            animalsGroupTextBox.Name = "animalsGroupTextBox";
+            animalsGroupTextBox.Size = new Size(166, 23);
+            animalsGroupTextBox.TabIndex = 7;
             // 
             // operatorCheckBox
             // 
@@ -232,91 +339,6 @@
             btnDeleteReceipt.UseVisualStyleBackColor = false;
             btnDeleteReceipt.Click += btnDeleteReceipt_Click;
             // 
-            // animalsGroupCheckBox
-            // 
-            animalsGroupCheckBox.AutoSize = true;
-            animalsGroupCheckBox.Location = new Point(22, 141);
-            animalsGroupCheckBox.Name = "animalsGroupCheckBox";
-            animalsGroupCheckBox.Size = new Size(124, 19);
-            animalsGroupCheckBox.TabIndex = 8;
-            animalsGroupCheckBox.Text = "Группа животных";
-            animalsGroupCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // animalsGroupTextBox
-            // 
-            animalsGroupTextBox.Location = new Point(202, 143);
-            animalsGroupTextBox.Name = "animalsGroupTextBox";
-            animalsGroupTextBox.Size = new Size(166, 23);
-            animalsGroupTextBox.TabIndex = 7;
-            // 
-            // checkBox3
-            // 
-            checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(22, 170);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(85, 19);
-            checkBox3.TabIndex = 10;
-            checkBox3.Text = "Отделение";
-            checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(202, 172);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(166, 23);
-            textBox3.TabIndex = 9;
-            // 
-            // checkBox4
-            // 
-            checkBox4.AutoSize = true;
-            checkBox4.Location = new Point(22, 199);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(149, 19);
-            checkBox4.TabIndex = 12;
-            checkBox4.Text = "За кем прикрепленны";
-            checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(202, 201);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(166, 23);
-            textBox4.TabIndex = 11;
-            // 
-            // checkBox5
-            // 
-            checkBox5.AutoSize = true;
-            checkBox5.Location = new Point(22, 228);
-            checkBox5.Name = "checkBox5";
-            checkBox5.Size = new Size(168, 19);
-            checkBox5.TabIndex = 14;
-            checkBox5.Text = "Номер станка/животного";
-            checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // textBox5
-            // 
-            textBox5.Location = new Point(202, 230);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(166, 23);
-            textBox5.TabIndex = 13;
-            // 
-            // checkBox6
-            // 
-            checkBox6.AutoSize = true;
-            checkBox6.Location = new Point(22, 257);
-            checkBox6.Name = "checkBox6";
-            checkBox6.Size = new Size(150, 19);
-            checkBox6.TabIndex = 16;
-            checkBox6.Text = "Количество животных";
-            checkBox6.UseVisualStyleBackColor = true;
-            // 
-            // textBox6
-            // 
-            textBox6.Location = new Point(202, 259);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(166, 23);
-            textBox6.TabIndex = 15;
-            // 
             // ReceiptForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -362,15 +384,17 @@
         private DateTimePicker dateTimePicker1;
         private CheckBox operatorCheckBox;
         private TextBox operatorTextBox;
-        private CheckBox checkBox6;
-        private TextBox textBox6;
-        private CheckBox checkBox5;
-        private TextBox textBox5;
-        private CheckBox checkBox4;
-        private TextBox textBox4;
-        private CheckBox checkBox3;
-        private TextBox textBox3;
+        private CheckBox quantityCheckBox;
+        private TextBox quantityTextBox;
+        private CheckBox animalNumberCheckBox;
+        private TextBox animalNumberTextBox;
+        private CheckBox responsibleEmployeeCheckBox;
+        private TextBox responsibleEmployeeTextBox;
+        private CheckBox departmentCheckBox;
+        private TextBox departmentTextBox;
         private CheckBox animalsGroupCheckBox;
         private TextBox animalsGroupTextBox;
+        private CheckBox brigadeСheckBox;
+        private TextBox brigadeTextBox;
     }
 }
