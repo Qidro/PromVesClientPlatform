@@ -302,6 +302,7 @@
             btnSaveReceipt.TabIndex = 6;
             btnSaveReceipt.Text = "Сохранить квитанцию";
             btnSaveReceipt.UseVisualStyleBackColor = true;
+            btnSaveReceipt.Click += btnSaveReceipt_Click;
             // 
             // btnPrintReceipt
             // 

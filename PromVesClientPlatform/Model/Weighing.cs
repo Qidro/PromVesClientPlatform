@@ -23,16 +23,21 @@ namespace PromVesClientPlatform.Model
         public decimal? AnimalNumber { get; set; }
         //Количество
         public decimal? Quantity { get; set; }
-        //Предыдущее взвешивание
-        public decimal? PreviousWeigh { get; set; }
-        //Дата предыдущего взвешивания
-        public DateTime? DatePreviousWeighing { get; set; }
+        //Количество старое
+        public decimal? QuantityOld { get; set; }
         //текущее взвешивание
         public decimal CurrentWeighing { get; set; }
+        //предыдущее взвешивание
+        public decimal CurrentWeighingOld { get; set; }
         //Привес
         public decimal? WeightGain { get; set; }
+        //Привес прошлый
+        public decimal WeightGainOld { get; set; }
         //Дата взвешивания (текущее)
         public DateTime WeighingDate { get; set; }
+        //Дата предыдущего взвешивания
+        public DateTime? DatePreviousWeighing { get; set; }
+        
 
         // Внешний ключ
         public Guid ReceiptId { get; set; }
