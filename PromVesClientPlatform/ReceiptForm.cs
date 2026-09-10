@@ -23,6 +23,15 @@ namespace PromVesClientPlatform
         private string OperatorReceipt;
         private readonly ILogger<ReceiptForm> _logger;
         private readonly CurrentUserService _currentUserService;
+        //поля для фильтров
+        private string AnimalsGroup;
+        private string Department;
+        private string Brigade;
+        private string ResponsibleEmployee;
+        private decimal? AnimalNumber;
+        private string Operator;
+        private decimal? Quantity;
+
         public ReceiptForm(ReceiptService receiptService, ILogger<ReceiptForm> logger, CurrentUserService currentUserService)
         {
             InitializeComponent();
@@ -95,10 +104,12 @@ namespace PromVesClientPlatform
             dataGridViewСards.Columns["ResponsibleEmployee"].HeaderText = "За кем прикреплены животные";
             dataGridViewСards.Columns["AnimalNumber"].HeaderText = "Номер животного или станка";
             dataGridViewСards.Columns["Quantity"].HeaderText = "Количество";
-            dataGridViewСards.Columns["PreviousWeigh"].HeaderText = "Предыдущее взвешивание";
-            dataGridViewСards.Columns["DatePreviousWeighing"].HeaderText = "Дата предыдущего взвешивания";
+            dataGridViewСards.Columns["QuantityOld"].HeaderText = "Количество (предыдущее)";
             dataGridViewСards.Columns["CurrentWeighing"].HeaderText = "Текущее взвешивание";
+            dataGridViewСards.Columns["CurrentWeighingOld"].HeaderText = "Предыдущее взвешивание";
+            dataGridViewСards.Columns["DatePreviousWeighing"].HeaderText = "Дата предыдущего взвешивания";
             dataGridViewСards.Columns["WeightGain"].HeaderText = "Привес";
+            dataGridViewСards.Columns["WeightGainOld"].HeaderText = "Привес (предыдущий)";
             dataGridViewСards.Columns["WeighingDate"].HeaderText = "Дата взвешивания (текущее)";
 
             //Запрещаем редактировать только данные взвешивания и даты взешивания
@@ -108,7 +119,7 @@ namespace PromVesClientPlatform
             dataGridViewСards.Columns["WeighingDate"].DefaultCellStyle.Format = "dd.MM.yyyy";
             dataGridViewСards.Columns["DatePreviousWeighing"].DefaultCellStyle.Format = "dd.MM.yyyy";
         }
-
+        //метод удаления карточки взвешивания
         private async void btnDeleteCard_Click(object sender, EventArgs e)
         {
             if (dataGridViewСards.CurrentRow != null)
@@ -214,20 +225,156 @@ namespace PromVesClientPlatform
                 MessageBox.Show("Перед удалением выберите квитанцию, которую хотели бы удалить", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        private void btnResetFilter_Click(object sender, EventArgs e)
+        //метод сброса фильтра
+        private async void btnResetFilter_Click(object sender, EventArgs e)
         {
-
+            //загружаем в таблицу квитанций изначальные данные 
+            await ReceiptLoad();
+            receiptInfoLabel.Text = "";
+            dataGridViewСards.DataSource = null;
         }
-
-        private void btnReportFilter_Click(object sender, EventArgs e)
+        //метод создания фильтра для квитанции
+        private async void btnReportFilter_Click(object sender, EventArgs e)
         {
-
+            _logger.LogInformation($"Пользователь {_currentUserService.CurrentUser?.Name} нажал на кнопку формирование фильтра");
+            //провекра на выбор полей
+            if (operatorCheckBox.Checked)
+            {
+                //проверка на пустую строку,убрая пробелы
+                if (string.IsNullOrWhiteSpace(operatorTextBox.Text))
+                {
+                    MessageBox.Show("Поле оператора не может быть пустым", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    Operator = operatorTextBox.Text;
+                }
+            }
+            if (animalsGroupCheckBox.Checked)
+            {
+                //проверка на пустую строку,убрая пробелы
+                if (string.IsNullOrWhiteSpace(animalsGroupCheckBox.Text))
+                {
+                    MessageBox.Show("Поле группы животных не может быть пустым", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    AnimalsGroup = animalsGroupTextBox.Text;
+                }
+            }
+            if (departmentCheckBox.Checked)
+            {
+                //проверка на пустую строку,убрая пробелы
+                if (string.IsNullOrWhiteSpace(departmentTextBox.Text))
+                {
+                    MessageBox.Show("Поле отделения не может быть пустым", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    Department = departmentTextBox.Text;
+                }
+            }
+            if (brigadeСheckBox.Checked)
+            {
+                //проверка на пустую строку,убрая пробелы
+                if (string.IsNullOrWhiteSpace(brigadeTextBox.Text))
+                {
+                    MessageBox.Show("Поле бригады не может быть пустым", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    Brigade = brigadeTextBox.Text;
+                }
+            }
+            if (responsibleEmployeeCheckBox.Checked)
+            {
+                //проверка на пустую строку,убрая пробелы
+                if (string.IsNullOrWhiteSpace(responsibleEmployeeTextBox.Text))
+                {
+                    MessageBox.Show($"Поле {"За кем зарепленны"} не может быть пустым", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    ResponsibleEmployee = responsibleEmployeeTextBox.Text;
+                }
+            }
+            if (animalNumberCheckBox.Checked)
+            {
+                //проверка на пустую строку,убрая пробелы
+                if (string.IsNullOrWhiteSpace(animalNumberTextBox.Text) || !decimal.TryParse(animalNumberTextBox.Text, out decimal quantity))
+                {
+                    MessageBox.Show($"Поле номера животных/станка некорректно", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    AnimalNumber = quantity;
+                }
+            }
+            if (quantityCheckBox.Checked)
+            {
+                //проверка на пустую строку,убрая пробелы
+                if (string.IsNullOrWhiteSpace(quantityTextBox.Text) || !decimal.TryParse(quantityTextBox.Text, out decimal quantity))
+                {
+                    MessageBox.Show($"Поле количетсва животных некорректно", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    Quantity = quantity;
+                }
+            }
+            //заполнение DTO
+            SearchReceiptDto searchReceiptDto = new SearchReceiptDto
+            {
+                periodStart = dateTimePicker1.Value.ToUniversalTime(),
+                periodEnd = dateTimePicker2.Value.ToUniversalTime(),
+                Operator = Operator,
+                GroupAnimals = AnimalsGroup,
+                Department = Department,
+                Brigade = Brigade,
+                ResponsibleEmployee = ResponsibleEmployee,
+                AnimalNumber = AnimalNumber,
+                Quantity = Quantity
+            };
+            //получаем результат запроса к БД
+            var result = await _receiptService.GetSearchReceiptAsync(searchReceiptDto);
+            //проверка результата
+            if (result.Success == false)
+            {
+                MessageBox.Show($"Ошибка поиска квитанций, причина: {result.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            receiptList = result.Data;
+            dataGridViewReceipts.DataSource = result.Data;
+            Operator = null;
+            AnimalsGroup = null;
+            Department = null;
+            Brigade = null;
+            ResponsibleEmployee = null;
+            AnimalNumber = null;
+            Quantity = null;
+            dataGridViewСards.DataSource = null;
+            receiptInfoLabel.Text = "";
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnSaveReceipt_Click(object sender, EventArgs e)
+        {
+            if (cardsList == null || cardsList.Count == 0)
+            {
+                MessageBox.Show("Сначала выберите квитанцию.");
+                return;
+            }
+            _logger.LogInformation($"Пользователь {_currentUserService.CurrentUser?.Name} нажал на кнопку сохранения квитанции");
+            List<ReceiptDtoExcel> receiptExcel = new();
         }
     }
 }

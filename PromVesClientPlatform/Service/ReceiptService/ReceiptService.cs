@@ -71,10 +71,12 @@ namespace PromVesClientPlatform.Service.ReceiptService
                       ResponsibleEmployee = w.ResponsibleEmployee,
                       AnimalNumber = w.AnimalNumber,
                       Quantity = w.Quantity,
-                      PreviousWeigh = w.PreviousWeigh,
-                      DatePreviousWeighing = w.DatePreviousWeighing,
+                      QuantityOld = w.QuantityOld,
                       CurrentWeighing = w.CurrentWeighing,
+                      CurrentWeighingOld = w.CurrentWeighingOld,
+                      DatePreviousWeighing = w.DatePreviousWeighing,
                       WeightGain = w.WeightGain,
+                      WeightGainOld = w.WeightGainOld,
                       WeighingDate = w.WeighingDate
                   })
                   .ToListAsync();
@@ -141,6 +143,91 @@ namespace PromVesClientPlatform.Service.ReceiptService
                 _logger.LogError(ex, "Ошибка удаления квитанции");
                 return ServiceResult.Fail("Ошибка удаления.");
             }
+        }
+        //метод поиска квитанций по фильтрам
+        public async Task<ServiceResult<List<ReceiptDto>>> GetSearchReceiptAsync(SearchReceiptDto filter)
+        {
+            try
+            {
+                //AsQueryable подчеркивает, что далее запрос будет строиться динамически (добавляться)
+                var query = _dbContext.Receipts.AsQueryable();
+                //период
+                query = query.Where( r =>
+                r.DateTime >= filter.periodStart &&
+                r.DateTime <= filter.periodEnd);
+                //поиск оператора
+                if (!string.IsNullOrWhiteSpace(filter.Operator))
+                {
+                    query = query.Where( r =>
+                    r.Operator == filter.Operator);
+                }
+                //поиск Группы животных
+                if (!string.IsNullOrWhiteSpace(filter.GroupAnimals))
+                {
+                    query = query.Where( r =>
+                        r.Weighings.Any(w => w.GroupAnimals == filter.GroupAnimals));
+                }
+                //поиск департамента
+                if (!string.IsNullOrWhiteSpace(filter.Department))
+                {
+                    query = query.Where( r=>
+                        r.Weighings.Any(w => w.Department == filter.Department));
+                }
+                //поиск Бригады
+                if (!string.IsNullOrWhiteSpace(filter.Brigade))
+                {
+                    query = query.Where(r =>
+                    r.Weighings.Any(w => w.Brigade == filter.Brigade));
+                }
+                //поиск за кем прикреплены животные
+                if (!string.IsNullOrWhiteSpace(filter.ResponsibleEmployee))
+                {
+                    query = query.Where(r=>
+                    r.Weighings.Any(w => w.ResponsibleEmployee == filter.ResponsibleEmployee));
+                }
+                //поиск номера или станка
+                if (filter.AnimalNumber.HasValue)
+                {
+                    query = query.Where(r =>
+                    r.Weighings.Any(w => w.AnimalNumber == filter.AnimalNumber));
+                }
+                //количество животных
+                if (filter.Quantity.HasValue)
+                {
+                    query = query.Where(r =>
+                    r.Weighings.Any(w=> w.Quantity == filter.Quantity));
+                }
+                //делаем запрос
+                var reseiptFilter = await query.Select(
+                    r=> new ReceiptDto
+                    { 
+                        Id = r.Id,
+                        DateTime = r.DateTime,
+                        Operator = r.Operator,
+                    })
+                    .ToListAsync();
+                return new ServiceResult<List<ReceiptDto>>
+                {
+                    Success = true,
+                    Data = reseiptFilter
+                };
+            }
+            catch (TimeoutException ex)
+            {
+                _logger.LogError("Привышенно время ожидания ответа: " + ex.Message);
+                return ServiceResult<List<ReceiptDto>>.Fail("БД не отвечает, причина: " + ex.Message);
+            }
+            catch (NpgsqlException ex)
+            {
+                _logger.LogError("Ошибка сервера БД: " + ex.Message);
+                return ServiceResult<List<ReceiptDto>>.Fail("Ошибка сервера БД: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Неизвестная ошибка БД: " + ex.Message);
+                return ServiceResult<List<ReceiptDto>>.Fail("Неизвестная ошибка БД: " + ex.Message);
+            }
+            //return ServiceResult<List<ReceiptDto>>.Fail("");
         }
     }
 }
