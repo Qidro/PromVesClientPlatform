@@ -229,5 +229,46 @@ namespace PromVesClientPlatform.Service.ReceiptService
             }
             //return ServiceResult<List<ReceiptDto>>.Fail("");
         }
+
+        public async Task<ServiceResult> ChangeReceiptAsync(List<CardsDto> cardsChange)
+        {
+            try
+            {
+                foreach (var cardChange in cardsChange)
+                {
+                    var card = await _dbContext.Weighings.FindAsync(cardChange.Id);
+                    if (card != null)
+                    {
+                        card.GroupAnimals = cardChange.GroupAnimals;
+                        card.Department = cardChange.Department;
+                        card.Brigade = cardChange.Brigade;
+                        card.ResponsibleEmployee = cardChange.ResponsibleEmployee;
+                        card.AnimalNumber = cardChange.AnimalNumber;
+                        card.Quantity = cardChange.Quantity;
+                        card.QuantityOld = cardChange.QuantityOld;
+                        //card.
+                    }
+                    await _dbContext.SaveChangesAsync();
+                }
+                return ServiceResult.Ok();
+            }
+            catch (TimeoutException ex)
+            {
+                _logger.LogError(ex, "Ошибка ожидания ответа от БД");
+                return ServiceResult.Fail("Ошибка ожидания ответа от БД: " + ex.Message);
+            }
+            catch (NpgsqlException ex)
+            {
+                _logger.LogError(ex, "Ошибка бд");
+                return ServiceResult.Fail("Ошибка БД: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка изменения квитанцию животных");
+
+                return ServiceResult.Fail("Не удалось изменить квитанцию животных" + ex.Message);
+            }
+            //return ServiceResult.Ok();
+        }
     }
 }

@@ -2,6 +2,7 @@
 using PromVesClientPlatform.DTO;
 using PromVesClientPlatform.Service;
 using PromVesClientPlatform.Service.ReceiptService;
+using ScottPlot.MultiplotLayouts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SkiaSharp.HarfBuzz.SKShaper;
 
 namespace PromVesClientPlatform
 {
@@ -18,20 +20,31 @@ namespace PromVesClientPlatform
     {
         private readonly ReceiptService _receiptService;
         private List<ReceiptDto> receiptList;
+        //исходные данные картчоек из БД
         private List<CardsDto> cardsList = new();
+        //измененные данные карточек для БД
+        private List<CardsDto> cardChangeList = new();
         //поле для печати квитанции
         private string OperatorReceipt;
         private readonly ILogger<ReceiptForm> _logger;
         private readonly CurrentUserService _currentUserService;
         //поля для фильтров
+        private string AnimalsGroupFilter;
+        private string DepartmentFilter;
+        private string BrigadeFilter;
+        private string ResponsibleEmployeeFilter;
+        private decimal? AnimalNumberFilter;
+        private string OperatorFilter;
+        private decimal? QuantityFilter;
+        //поля для изменения данных
         private string AnimalsGroup;
         private string Department;
         private string Brigade;
         private string ResponsibleEmployee;
         private decimal? AnimalNumber;
+        private decimal? QuantityOld;
         private string Operator;
         private decimal? Quantity;
-
         public ReceiptForm(ReceiptService receiptService, ILogger<ReceiptForm> logger, CurrentUserService currentUserService)
         {
             InitializeComponent();
@@ -248,7 +261,7 @@ namespace PromVesClientPlatform
                 }
                 else
                 {
-                    Operator = operatorTextBox.Text;
+                    OperatorFilter = operatorTextBox.Text;
                 }
             }
             if (animalsGroupCheckBox.Checked)
@@ -261,7 +274,7 @@ namespace PromVesClientPlatform
                 }
                 else
                 {
-                    AnimalsGroup = animalsGroupTextBox.Text;
+                    AnimalsGroupFilter = animalsGroupTextBox.Text;
                 }
             }
             if (departmentCheckBox.Checked)
@@ -273,7 +286,7 @@ namespace PromVesClientPlatform
                 }
                 else
                 {
-                    Department = departmentTextBox.Text;
+                    DepartmentFilter = departmentTextBox.Text;
                 }
             }
             if (brigadeСheckBox.Checked)
@@ -286,7 +299,7 @@ namespace PromVesClientPlatform
                 }
                 else
                 {
-                    Brigade = brigadeTextBox.Text;
+                    BrigadeFilter = brigadeTextBox.Text;
                 }
             }
             if (responsibleEmployeeCheckBox.Checked)
@@ -299,7 +312,7 @@ namespace PromVesClientPlatform
                 }
                 else
                 {
-                    ResponsibleEmployee = responsibleEmployeeTextBox.Text;
+                    ResponsibleEmployeeFilter = responsibleEmployeeTextBox.Text;
                 }
             }
             if (animalNumberCheckBox.Checked)
@@ -312,7 +325,7 @@ namespace PromVesClientPlatform
                 }
                 else
                 {
-                    AnimalNumber = quantity;
+                    AnimalNumberFilter = quantity;
                 }
             }
             if (quantityCheckBox.Checked)
@@ -325,7 +338,7 @@ namespace PromVesClientPlatform
                 }
                 else
                 {
-                    Quantity = quantity;
+                    QuantityFilter = quantity;
                 }
             }
             //заполнение DTO
@@ -333,13 +346,13 @@ namespace PromVesClientPlatform
             {
                 periodStart = dateTimePicker1.Value.ToUniversalTime(),
                 periodEnd = dateTimePicker2.Value.ToUniversalTime(),
-                Operator = Operator,
-                GroupAnimals = AnimalsGroup,
-                Department = Department,
-                Brigade = Brigade,
-                ResponsibleEmployee = ResponsibleEmployee,
-                AnimalNumber = AnimalNumber,
-                Quantity = Quantity
+                Operator = OperatorFilter,
+                GroupAnimals = AnimalsGroupFilter,
+                Department = DepartmentFilter,
+                Brigade = BrigadeFilter,
+                ResponsibleEmployee = ResponsibleEmployeeFilter,
+                AnimalNumber = AnimalNumberFilter,
+                Quantity = QuantityFilter
             };
             //получаем результат запроса к БД
             var result = await _receiptService.GetSearchReceiptAsync(searchReceiptDto);
@@ -350,13 +363,13 @@ namespace PromVesClientPlatform
             }
             receiptList = result.Data;
             dataGridViewReceipts.DataSource = result.Data;
-            Operator = null;
-            AnimalsGroup = null;
-            Department = null;
-            Brigade = null;
-            ResponsibleEmployee = null;
-            AnimalNumber = null;
-            Quantity = null;
+            OperatorFilter = null;
+            AnimalsGroupFilter = null;
+            DepartmentFilter = null;
+            BrigadeFilter = null;
+            ResponsibleEmployeeFilter = null;
+            AnimalNumberFilter = null;
+            QuantityFilter = null;
             dataGridViewСards.DataSource = null;
             receiptInfoLabel.Text = "";
         }
@@ -365,7 +378,7 @@ namespace PromVesClientPlatform
         {
 
         }
-
+        //сохранение квтиануии
         private void btnSaveReceipt_Click(object sender, EventArgs e)
         {
             if (cardsList == null || cardsList.Count == 0)
@@ -375,6 +388,40 @@ namespace PromVesClientPlatform
             }
             _logger.LogInformation($"Пользователь {_currentUserService.CurrentUser?.Name} нажал на кнопку сохранения квитанции");
             List<ReceiptDtoExcel> receiptExcel = new();
+        }
+
+        private async void changeCardButton_Click(object sender, EventArgs e)
+        {
+            //проверка на выбор карточки
+            if (cardsList == null || cardsList.Count == 0)
+            {
+                MessageBox.Show(
+                    "Сначала выберите карточку.",
+                    "Предупреждение",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+            // Завершаем редактирование текущей ячейки
+            if (!dataGridViewСards.EndEdit())
+            {
+                return;
+            }
+            var data = dataGridViewСards.DataSource as List<CardsDto>;
+            var result = await _receiptService.ChangeReceiptAsync(data);
+            if (result.Success == true)
+            {
+                MessageBox.Show($"Квитанция успешно сохранена", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else 
+            {
+                MessageBox.Show($"Ошибка изменения квитанций, причина: {result.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //MessageBox.Show($"Не удалось распознать номер животного", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+
         }
     }
 }
