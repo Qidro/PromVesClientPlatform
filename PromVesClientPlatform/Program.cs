@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using PromVesClient.Service.TcpService;
 using PromVesClientPlatform.Service;
+using PromVesClientPlatform.Service.AnimalWeighingService;
 using PromVesClientPlatform.Service.AuthorizationService;
 using PromVesClientPlatform.Service.ComPortSettingService;
 using PromVesClientPlatform.Service.ReceiptService;
@@ -31,11 +33,14 @@ namespace PromVesClientPlatform
             services.AddTransient<UserForm>();
             services.AddTransient<ComPortSettingPort>();
             services.AddTransient<ReceiptForm>();
+            services.AddTransient<StaticForm>();
             //регистрация сервисов
             services.AddScoped<UserService>();
             services.AddScoped<HashPasswordService>();
             services.AddScoped<ComPortSettingService>();
             services.AddScoped<ReceiptService>();
+            services.AddScoped<TcpService>();
+            services.AddScoped<AnimalWeighingService>();
             //регистрация одного экземпляра, чтобы все формы работали именно с ним
             services.AddSingleton<CurrentUserService>();
 

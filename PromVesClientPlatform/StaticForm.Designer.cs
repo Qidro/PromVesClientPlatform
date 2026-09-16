@@ -68,9 +68,10 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(570, 12);
+            pictureBox1.Location = new Point(610, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(80, 122);
+            pictureBox1.Size = new Size(74, 122);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
@@ -83,6 +84,7 @@
             Weighingbtn.TabIndex = 7;
             Weighingbtn.Text = "Начать взвешивание";
             Weighingbtn.UseVisualStyleBackColor = true;
+            Weighingbtn.Click += Weighingbtn_Click_1;
             // 
             // lblConnectScale
             // 
@@ -215,44 +217,52 @@
             Savebtn.TabIndex = 54;
             Savebtn.Text = "Сохранить вес";
             Savebtn.UseVisualStyleBackColor = true;
+            Savebtn.Click += Savebtn_Click_1;
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new Point(647, 12);
+            pictureBox2.Location = new Point(683, 12);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(80, 122);
+            pictureBox2.Size = new Size(75, 122);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 55;
             pictureBox2.TabStop = false;
             // 
             // pictureBox3
             // 
-            pictureBox3.Location = new Point(724, 12);
+            pictureBox3.Location = new Point(754, 12);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(80, 122);
+            pictureBox3.Size = new Size(70, 122);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 56;
             pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
             // 
             // pictureBox4
             // 
-            pictureBox4.Location = new Point(801, 12);
+            pictureBox4.Location = new Point(821, 12);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(80, 122);
+            pictureBox4.Size = new Size(72, 122);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 57;
             pictureBox4.TabStop = false;
+            pictureBox4.Click += pictureBox4_Click;
             // 
             // pictureBox5
             // 
-            pictureBox5.Location = new Point(877, 12);
+            pictureBox5.Location = new Point(890, 12);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(80, 122);
+            pictureBox5.Size = new Size(78, 122);
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox5.TabIndex = 58;
             pictureBox5.TabStop = false;
             // 
             // pictureBox6
             // 
-            pictureBox6.Location = new Point(954, 12);
+            pictureBox6.Location = new Point(965, 12);
             pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(80, 122);
+            pictureBox6.Size = new Size(69, 122);
+            pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox6.TabIndex = 59;
             pictureBox6.TabStop = false;
             // 

@@ -88,42 +88,6 @@ namespace PromVesClientPlatform
         {
 
         }
-        //нажатие на кнопку, которое отвечает за подключение к серверу и получению данных от него
-        //либо его отключение от сервера
-        private async void Weighingbtn_Click(object sender, EventArgs e)
-        {
-            if (Weighingbtn.Text == "Начать взвешивание")
-            {
-                try
-                {
-                    await _tcpService.ConnectAsync();
-                    //начали взвешивание - данные можно сохранить
-                    Weighingbtn.Enabled = true;
-                    graphTimer.Start();
-                    IdReceipt = Guid.NewGuid();
-                    Weighingbtn.Text = "Закончить взвешивание";
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError("Ошибка: " + ex.Message.ToString());
-                    await _tcpService.DisconnectAsync();
-                    graphTimer.Stop();
-                    MessageBox.Show(
-                    ex.Message,
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                }
-
-            }
-            else
-            {
-                await _tcpService.DisconnectAsync();
-                graphTimer.Stop();
-                Weighingbtn.Text = "Начать взвешивание";
-            }
-        }
-
         //событие ошибки
         private async void OnConnectionError(Exception ex)
         {
@@ -272,10 +236,45 @@ namespace PromVesClientPlatform
             lblConnectScale.BackColor = Color.Green;
             return true;
         }
+
+        //нажатие на кнопку, которое отвечает за подключение к серверу и получению данных от него
+        //либо его отключение от сервера
+        private async void Weighingbtn_Click_1(object sender, EventArgs e)
+        {
+            if (Weighingbtn.Text == "Начать взвешивание")
+            {
+                try
+                {
+                    await _tcpService.ConnectAsync();
+                    //начали взвешивание - данные можно сохранить
+                    Weighingbtn.Enabled = true;
+                    graphTimer.Start();
+                    IdReceipt = Guid.NewGuid();
+                    Weighingbtn.Text = "Закончить взвешивание";
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("Ошибка: " + ex.Message.ToString());
+                    await _tcpService.DisconnectAsync();
+                    graphTimer.Stop();
+                    MessageBox.Show(
+                    ex.Message,
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                }
+
+            }
+            else
+            {
+                await _tcpService.DisconnectAsync();
+                graphTimer.Stop();
+                Weighingbtn.Text = "Начать взвешивание";
+            }
+        }
+
         //метод для сохранения данных взвешивания в БД
-        private async void Savebtn_Click(
-            object sender,
-            EventArgs e)
+        private async void Savebtn_Click_1(object sender, EventArgs e)
         {
             // животное / станок
             if (string.IsNullOrWhiteSpace(
@@ -423,6 +422,16 @@ namespace PromVesClientPlatform
                 "Данные сохранены",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
