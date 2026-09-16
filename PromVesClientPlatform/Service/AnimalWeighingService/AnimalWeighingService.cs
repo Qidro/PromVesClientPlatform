@@ -5,6 +5,8 @@ using PromVesClientPlatform.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -111,8 +113,125 @@ namespace PromVesClientPlatform.Service.AnimalWeighingService
             }
 
         }
+        //метод предназначен для получения коллекции изображений для табла общего веса
+        public async Task<List<Image>> GetImageWeighingAsync(decimal weightSum)
+        {
+            List<Image> images = new List<Image>();
+            //преобразуем массив в string формат
+            string weightSumString = weightSum.ToString("F2");
+            Console.WriteLine(weightSumString);
+            //начиаем проход массива с конца
+            for (int i = weightSumString.Length - 1; i >= 0; i--)
+            {
+                //вычисляем проход по цикла
+                int iteration = weightSumString.Length - 1 - i;
 
+                if (weightSumString.Length - 1 < i)
+                {
+                    images.Add(Properties.Resources._00);
+                }
+                //проверяем на третьем проходе массива ли мы 
+                if (iteration == 3)
+                {
+                    //сохраняем значения согласну элементу (значение с запятой)
+                    switch (weightSumString[i])
+                    {
+                        case '0':
+                            images.Add(Properties.Resources._0t);
+                            break;
+                        case '1':
+                            images.Add(Properties.Resources._1t);
+                            break;
+                        case '2':
+                            images.Add(Properties.Resources._2t);
+                            break;
+                        case '3':
+                            images.Add(Properties.Resources._3t);
+                            break;
+                        case '4':
+                            images.Add(Properties.Resources._4t);
+                            break;
+                        case '5':
+                            images.Add(Properties.Resources._5t);
+                            break;
+                        case '6':
+                            images.Add(Properties.Resources._6t);
+                            break;
+                        case '7':
+                            images.Add(Properties.Resources._7t);
+                            break;
+                        case '8':
+                            images.Add(Properties.Resources._8t);
+                            break;
+                        case '9':
+                            images.Add(Properties.Resources._9t);
+                            break;
 
+                    }
+                }
+                else
+                {
+                    //сохраняем значения согласну элементу (значение без запятой)
+                    switch (weightSumString[i])
+                    {
+                        case '0':
+                            images.Add(Properties.Resources._0);
+                            break;
+                        case '1':
+                            images.Add(Properties.Resources._1);
+                            break;
+                        case '2':
+                            images.Add(Properties.Resources._2);
+                            break;
+                        case '3':
+                            images.Add(Properties.Resources._3);
+                            break;
+                        case '4':
+                            images.Add(Properties.Resources._4);
+                            break;
+                        case '5':
+                            images.Add(Properties.Resources._5);
+                            break;
+                        case '6':
+                            images.Add(Properties.Resources._6);
+                            break;
+                        case '7':
+                            images.Add(Properties.Resources._7);
+                            break;
+                        case '8':
+                            images.Add(Properties.Resources._8);
+                            break;
+                        case '9':
+                            images.Add(Properties.Resources._9);
+                            break;
+
+                    }
+                }
+                //char u = weightSumString[i];
+                if (i == 0 && iteration != 6)
+                {
+                    for (int j = 0; j < 6 - iteration; j++)
+                    {
+                        images.Add(Properties.Resources._00);
+                    }
+                }
+            }
+
+            return images;
+        }
+        //получение локального ip адреса компьютера
+        public async Task<IPAddress> GetLocalIPAddressAsync()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+
+            foreach (IPAddress ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    return ip;
+            }
+
+            throw new Exception("Локальный IPv4 адрес не найден.");
+        }
     }
     
 }

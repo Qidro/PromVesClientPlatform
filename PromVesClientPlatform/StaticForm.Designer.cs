@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StaticForm));
             formsPlot1 = new ScottPlot.WinForms.FormsPlot();
             pictureBox1 = new PictureBox();
             Weighingbtn = new Button();
@@ -39,26 +38,24 @@
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
-            textBox1 = new TextBox();
-            comboBox1 = new ComboBox();
-            comboBox2 = new ComboBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
+            QuantitytextBox = new TextBox();
+            GroupAnimalscomboBox = new ComboBox();
+            ResponsibleEmployeecomboBox = new ComboBox();
+            DepartmenttextBox = new TextBox();
+            BrigadetextBox = new TextBox();
+            AnimalNumbertextBox = new TextBox();
             Savebtn = new Button();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox4 = new PictureBox();
             pictureBox5 = new PictureBox();
             pictureBox6 = new PictureBox();
-            pictureBox7 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             SuspendLayout();
             // 
             // formsPlot1
@@ -159,55 +156,55 @@
             label6.TabIndex = 47;
             label6.Text = "Количество голов";
             // 
-            // textBox1
+            // QuantitytextBox
             // 
-            textBox1.Font = new Font("Segoe UI", 12F);
-            textBox1.Location = new Point(764, 326);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(270, 29);
-            textBox1.TabIndex = 48;
+            QuantitytextBox.Font = new Font("Segoe UI", 12F);
+            QuantitytextBox.Location = new Point(764, 326);
+            QuantitytextBox.Name = "QuantitytextBox";
+            QuantitytextBox.Size = new Size(270, 29);
+            QuantitytextBox.TabIndex = 48;
             // 
-            // comboBox1
+            // GroupAnimalscomboBox
             // 
-            comboBox1.Font = new Font("Segoe UI", 12F);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(764, 151);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(270, 29);
-            comboBox1.TabIndex = 49;
+            GroupAnimalscomboBox.Font = new Font("Segoe UI", 12F);
+            GroupAnimalscomboBox.FormattingEnabled = true;
+            GroupAnimalscomboBox.Location = new Point(764, 151);
+            GroupAnimalscomboBox.Name = "GroupAnimalscomboBox";
+            GroupAnimalscomboBox.Size = new Size(270, 29);
+            GroupAnimalscomboBox.TabIndex = 49;
             // 
-            // comboBox2
+            // ResponsibleEmployeecomboBox
             // 
-            comboBox2.Font = new Font("Segoe UI", 12F);
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(764, 256);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(270, 29);
-            comboBox2.TabIndex = 50;
+            ResponsibleEmployeecomboBox.Font = new Font("Segoe UI", 12F);
+            ResponsibleEmployeecomboBox.FormattingEnabled = true;
+            ResponsibleEmployeecomboBox.Location = new Point(764, 256);
+            ResponsibleEmployeecomboBox.Name = "ResponsibleEmployeecomboBox";
+            ResponsibleEmployeecomboBox.Size = new Size(270, 29);
+            ResponsibleEmployeecomboBox.TabIndex = 50;
             // 
-            // textBox2
+            // DepartmenttextBox
             // 
-            textBox2.Font = new Font("Segoe UI", 12F);
-            textBox2.Location = new Point(764, 186);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(270, 29);
-            textBox2.TabIndex = 51;
+            DepartmenttextBox.Font = new Font("Segoe UI", 12F);
+            DepartmenttextBox.Location = new Point(764, 186);
+            DepartmenttextBox.Name = "DepartmenttextBox";
+            DepartmenttextBox.Size = new Size(270, 29);
+            DepartmenttextBox.TabIndex = 51;
             // 
-            // textBox3
+            // BrigadetextBox
             // 
-            textBox3.Font = new Font("Segoe UI", 12F);
-            textBox3.Location = new Point(764, 221);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(270, 29);
-            textBox3.TabIndex = 52;
+            BrigadetextBox.Font = new Font("Segoe UI", 12F);
+            BrigadetextBox.Location = new Point(764, 221);
+            BrigadetextBox.Name = "BrigadetextBox";
+            BrigadetextBox.Size = new Size(270, 29);
+            BrigadetextBox.TabIndex = 52;
             // 
-            // textBox4
+            // AnimalNumbertextBox
             // 
-            textBox4.Font = new Font("Segoe UI", 12F);
-            textBox4.Location = new Point(764, 291);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(270, 29);
-            textBox4.TabIndex = 53;
+            AnimalNumbertextBox.Font = new Font("Segoe UI", 12F);
+            AnimalNumbertextBox.Location = new Point(764, 291);
+            AnimalNumbertextBox.Name = "AnimalNumbertextBox";
+            AnimalNumbertextBox.Size = new Size(270, 29);
+            AnimalNumbertextBox.TabIndex = 53;
             // 
             // Savebtn
             // 
@@ -259,34 +256,23 @@
             pictureBox6.TabIndex = 59;
             pictureBox6.TabStop = false;
             // 
-            // pictureBox7
-            // 
-            pictureBox7.Image = (Image)resources.GetObject("pictureBox7.Image");
-            pictureBox7.Location = new Point(636, 413);
-            pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(367, 155);
-            pictureBox7.TabIndex = 60;
-            pictureBox7.TabStop = false;
-            pictureBox7.UseWaitCursor = true;
-            // 
             // StaticForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1057, 568);
-            Controls.Add(pictureBox7);
             Controls.Add(pictureBox6);
             Controls.Add(pictureBox5);
             Controls.Add(pictureBox4);
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox2);
             Controls.Add(Savebtn);
-            Controls.Add(textBox4);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(comboBox2);
-            Controls.Add(comboBox1);
-            Controls.Add(textBox1);
+            Controls.Add(AnimalNumbertextBox);
+            Controls.Add(BrigadetextBox);
+            Controls.Add(DepartmenttextBox);
+            Controls.Add(ResponsibleEmployeecomboBox);
+            Controls.Add(GroupAnimalscomboBox);
+            Controls.Add(QuantitytextBox);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -307,7 +293,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -324,18 +309,17 @@
         private Label label4;
         private Label label5;
         private Label label6;
-        private TextBox textBox1;
-        private ComboBox comboBox1;
-        private ComboBox comboBox2;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
+        private TextBox QuantitytextBox;
+        private ComboBox GroupAnimalscomboBox;
+        private ComboBox ResponsibleEmployeecomboBox;
+        private TextBox DepartmenttextBox;
+        private TextBox BrigadetextBox;
+        private TextBox AnimalNumbertextBox;
         private Button Savebtn;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;
         private PictureBox pictureBox5;
         private PictureBox pictureBox6;
-        private PictureBox pictureBox7;
     }
 }
