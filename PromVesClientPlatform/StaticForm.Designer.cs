@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StaticForm));
             formsPlot1 = new ScottPlot.WinForms.FormsPlot();
             pictureBox1 = new PictureBox();
-            button1 = new Button();
+            Weighingbtn = new Button();
             lblConnectScale = new Label();
             label1 = new Label();
             label2 = new Label();
@@ -45,7 +45,7 @@
             textBox2 = new TextBox();
             textBox3 = new TextBox();
             textBox4 = new TextBox();
-            button2 = new Button();
+            Savebtn = new Button();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox4 = new PictureBox();
@@ -67,6 +67,7 @@
             formsPlot1.Name = "formsPlot1";
             formsPlot1.Size = new Size(523, 469);
             formsPlot1.TabIndex = 0;
+            formsPlot1.Load += formsPlot1_Load;
             // 
             // pictureBox1
             // 
@@ -76,15 +77,15 @@
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
-            // button1
+            // Weighingbtn
             // 
-            button1.Font = new Font("Segoe UI", 12F);
-            button1.Location = new Point(27, 35);
-            button1.Name = "button1";
-            button1.Size = new Size(276, 39);
-            button1.TabIndex = 7;
-            button1.Text = "Начать взвешивание";
-            button1.UseVisualStyleBackColor = true;
+            Weighingbtn.Font = new Font("Segoe UI", 12F);
+            Weighingbtn.Location = new Point(27, 35);
+            Weighingbtn.Name = "Weighingbtn";
+            Weighingbtn.Size = new Size(276, 39);
+            Weighingbtn.TabIndex = 7;
+            Weighingbtn.Text = "Начать взвешивание";
+            Weighingbtn.UseVisualStyleBackColor = true;
             // 
             // lblConnectScale
             // 
@@ -208,15 +209,15 @@
             textBox4.Size = new Size(270, 29);
             textBox4.TabIndex = 53;
             // 
-            // button2
+            // Savebtn
             // 
-            button2.Font = new Font("Segoe UI", 12F);
-            button2.Location = new Point(636, 361);
-            button2.Name = "button2";
-            button2.Size = new Size(398, 46);
-            button2.TabIndex = 54;
-            button2.Text = "Сохранить вес";
-            button2.UseVisualStyleBackColor = true;
+            Savebtn.Font = new Font("Segoe UI", 12F);
+            Savebtn.Location = new Point(636, 361);
+            Savebtn.Name = "Savebtn";
+            Savebtn.Size = new Size(398, 46);
+            Savebtn.TabIndex = 54;
+            Savebtn.Text = "Сохранить вес";
+            Savebtn.UseVisualStyleBackColor = true;
             // 
             // pictureBox2
             // 
@@ -261,11 +262,12 @@
             // pictureBox7
             // 
             pictureBox7.Image = (Image)resources.GetObject("pictureBox7.Image");
-            pictureBox7.Location = new Point(641, 413);
+            pictureBox7.Location = new Point(636, 413);
             pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(404, 155);
+            pictureBox7.Size = new Size(367, 155);
             pictureBox7.TabIndex = 60;
             pictureBox7.TabStop = false;
+            pictureBox7.UseWaitCursor = true;
             // 
             // StaticForm
             // 
@@ -278,7 +280,7 @@
             Controls.Add(pictureBox4);
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox2);
-            Controls.Add(button2);
+            Controls.Add(Savebtn);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
@@ -292,7 +294,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(lblConnectScale);
-            Controls.Add(button1);
+            Controls.Add(Weighingbtn);
             Controls.Add(pictureBox1);
             Controls.Add(formsPlot1);
             Font = new Font("Segoe UI", 9F);
@@ -314,7 +316,7 @@
 
         private ScottPlot.WinForms.FormsPlot formsPlot1;
         private PictureBox pictureBox1;
-        private Button button1;
+        private Button Weighingbtn;
         private Label lblConnectScale;
         private Label label1;
         private Label label2;
@@ -328,7 +330,7 @@
         private TextBox textBox2;
         private TextBox textBox3;
         private TextBox textBox4;
-        private Button button2;
+        private Button Savebtn;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;

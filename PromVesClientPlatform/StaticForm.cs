@@ -12,12 +12,19 @@ namespace PromVesClientPlatform
 {
     public partial class StaticForm : Form
     {
+        private Guid IdReceipt;
         public StaticForm()
         {
             InitializeComponent();
+            pictureBox7.SizeMode = PictureBoxSizeMode.Zoom;
         }
 
         private void StaticForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void formsPlot1_Load(object sender, EventArgs e)
         {
 
         }

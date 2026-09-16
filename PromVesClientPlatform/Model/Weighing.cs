@@ -12,7 +12,6 @@ namespace PromVesClientPlatform.Model
         public Guid Id { get; set; }
         //группа животных
         public string? GroupAnimals { get; set; }
-        //public DateTime DateTime { get; set; }
         //отделение
         public string? Department { get; set; }
         //бригада
@@ -28,11 +27,11 @@ namespace PromVesClientPlatform.Model
         //текущее взвешивание
         public decimal CurrentWeighing { get; set; }
         //предыдущее взвешивание
-        public decimal CurrentWeighingOld { get; set; }
+        public decimal? CurrentWeighingOld { get; set; }
         //Привес
         public decimal? WeightGain { get; set; }
         //Привес прошлый
-        public decimal WeightGainOld { get; set; }
+        public decimal? WeightGainOld { get; set; }
         //Дата взвешивания (текущее)
         public DateTime WeighingDate { get; set; }
         //Дата предыдущего взвешивания
