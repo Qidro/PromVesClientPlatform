@@ -64,7 +64,6 @@
             formsPlot1.Name = "formsPlot1";
             formsPlot1.Size = new Size(523, 469);
             formsPlot1.TabIndex = 0;
-            formsPlot1.Load += formsPlot1_Load;
             // 
             // Weighingbtn
             // 
@@ -294,7 +293,6 @@
             Font = new Font("Segoe UI", 9F);
             Name = "StaticForm";
             Text = "StaticForm";
-            Load += StaticForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
