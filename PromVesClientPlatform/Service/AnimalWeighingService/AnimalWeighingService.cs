@@ -60,8 +60,14 @@ namespace PromVesClientPlatform.Service.AnimalWeighingService
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError("Ошибка обновления БД:" + ex.Message);
-                return ServiceResult.Fail("Ошибка обновления БД: " + ex.Message);
+                _logger.LogError(
+                    ex,
+                    "Ошибка обновления БД. InnerException: {InnerException}",
+                    ex.InnerException?.Message);
+
+                return ServiceResult.Fail(
+                    "Ошибка обновления БД: " +
+                    ex.InnerException?.Message);
             }
             catch (InvalidOperationException ex)
             {
