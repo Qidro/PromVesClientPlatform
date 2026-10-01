@@ -50,7 +50,7 @@ namespace PromVesClientPlatform.Service.AnimalWeighingService
                     CurrentWeighingOld = lastWeighing?.CurrentWeighing,
                     WeightGain = dtoWeighing.CurrentWeighing - (lastWeighing?.CurrentWeighing ?? 0),
                     WeightGainOld = lastWeighing?.WeightGain,
-                    WeighingDate = DateTime.Now,
+                    WeighingDate = DateTime.UtcNow,
                     DatePreviousWeighing = lastWeighing?.WeighingDate,
                     ReceiptId = dtoWeighing.IdReceipt
                 };

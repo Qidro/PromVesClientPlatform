@@ -79,15 +79,6 @@ namespace PromVesClientPlatform
             pictureBox6.Image = Properties.Resources._0;
         }
 
-        private void StaticForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void formsPlot1_Load(object sender, EventArgs e)
-        {
-
-        }
         //событие ошибки
         private async void OnConnectionError(Exception ex)
         {
@@ -422,16 +413,6 @@ namespace PromVesClientPlatform
                 "Данные сохранены",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
