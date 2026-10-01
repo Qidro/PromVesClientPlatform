@@ -20,7 +20,7 @@ namespace PromVesClientPlatform
         public MainMenuForm(CurrentUserService currentUserService, IServiceProvider serviceProvider)
         {
             _currentUserService = currentUserService;
-            _serviceProvider = serviceProvider; 
+            _serviceProvider = serviceProvider;
             InitializeComponent();
             //label1.Text = _currentUserService.CurrentUser?.Name;
             if (_currentUserService.CurrentUser?.Role != "admin")
@@ -46,6 +46,12 @@ namespace PromVesClientPlatform
         private void button2_Click(object sender, EventArgs e)
         {
             var form = _serviceProvider.GetRequiredService<ReceiptForm>();
+            form.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var form = _serviceProvider.GetRequiredService<StaticForm>();
             form.ShowDialog();
         }
     }
