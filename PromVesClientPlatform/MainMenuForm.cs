@@ -54,5 +54,13 @@ namespace PromVesClientPlatform
             var form = _serviceProvider.GetRequiredService<StaticForm>();
             form.ShowDialog();
         }
+
+        private void справочникToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form =
+       _serviceProvider.GetRequiredService<DirectoryForm>();
+
+            form.ShowDialog(this);
+        }
     }
 }

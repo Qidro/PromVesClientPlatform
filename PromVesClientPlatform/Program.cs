@@ -7,6 +7,7 @@ using PromVesClientPlatform.Service.AuthorizationService;
 using PromVesClientPlatform.Service.ComPortSettingService;
 using PromVesClientPlatform.Service.ReceiptService;
 using PromVesClientPlatform.Service.UserService;
+using PromVesClientPlatform.Service.DirectoryService;
 
 namespace PromVesClientPlatform
 {
@@ -34,6 +35,7 @@ namespace PromVesClientPlatform
             services.AddTransient<ComPortSettingPort>();
             services.AddTransient<ReceiptForm>();
             services.AddTransient<StaticForm>();
+            services.AddTransient<DirectoryForm>();
             //регистрация сервисов
             services.AddScoped<UserService>();
             services.AddScoped<HashPasswordService>();
@@ -41,6 +43,7 @@ namespace PromVesClientPlatform
             services.AddScoped<ReceiptService>();
             services.AddScoped<TcpService>();
             services.AddScoped<AnimalWeighingService>();
+            services.AddScoped<DirectoryService>(); 
             //регистрация одного экземпляра, чтобы все формы работали именно с ним
             services.AddSingleton<CurrentUserService>();
 

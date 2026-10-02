@@ -36,6 +36,7 @@
             userToolStripMenuItem = new ToolStripMenuItem();
             serviceToolStripMenuItem = new ToolStripMenuItem();
             setupToolStripMenuItem = new ToolStripMenuItem();
+            справочникToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -87,7 +88,7 @@
             // 
             // serviceToolStripMenuItem
             // 
-            serviceToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { setupToolStripMenuItem });
+            serviceToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { setupToolStripMenuItem, справочникToolStripMenuItem });
             serviceToolStripMenuItem.Name = "serviceToolStripMenuItem";
             serviceToolStripMenuItem.Size = new Size(59, 20);
             serviceToolStripMenuItem.Text = "Сервис";
@@ -95,9 +96,16 @@
             // setupToolStripMenuItem
             // 
             setupToolStripMenuItem.Name = "setupToolStripMenuItem";
-            setupToolStripMenuItem.Size = new Size(120, 22);
+            setupToolStripMenuItem.Size = new Size(180, 22);
             setupToolStripMenuItem.Text = "Наладка";
             setupToolStripMenuItem.Click += setupToolStripMenuItem_Click;
+            // 
+            // справочникToolStripMenuItem
+            // 
+            справочникToolStripMenuItem.Name = "справочникToolStripMenuItem";
+            справочникToolStripMenuItem.Size = new Size(180, 22);
+            справочникToolStripMenuItem.Text = "Справочник";
+            справочникToolStripMenuItem.Click += справочникToolStripMenuItem_Click;
             // 
             // label1
             // 
@@ -140,5 +148,6 @@
         private ToolStripMenuItem serviceToolStripMenuItem;
         private ToolStripMenuItem setupToolStripMenuItem;
         private Label label1;
+        private ToolStripMenuItem справочникToolStripMenuItem;
     }
 }

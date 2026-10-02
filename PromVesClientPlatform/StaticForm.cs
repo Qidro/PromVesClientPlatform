@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using PromVesClient.Service.TcpService;
 using PromVesClientPlatform.DTO;
+using PromVesClientPlatform.Model;
 using PromVesClientPlatform.Service;
 using PromVesClientPlatform.Service.AnimalWeighingService;
+using PromVesClientPlatform.Service.DirectoryService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,6 +36,7 @@ namespace PromVesClientPlatform
         private List<ScottPlot.WinForms.FormsPlot> plots;
         private readonly Queue<decimal> values = new();
         private readonly System.Windows.Forms.Timer graphTimer = new();
+        private readonly DirectoryService _directoryService;
 
         private decimal currentWeight;
 
@@ -41,12 +44,14 @@ namespace PromVesClientPlatform
             CurrentUserService currentUserService,
             ILogger<StaticForm> logger,
             AnimalWeighingService animalweighingservice,
-            TcpService tcpService)
+            TcpService tcpService,
+            DirectoryService directoryService)
         {
             _logger = logger;
             _animalweighingservice = animalweighingservice;
             _currentUserService = currentUserService;
             _tcpService = tcpService;
+            _directoryService = directoryService;
 
             InitializeComponent();
             //регистрации метода на ожидание новых данных
@@ -413,6 +418,26 @@ namespace PromVesClientPlatform
                 "Данные сохранены",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+        }
+        private async Task LoadDirectoriesAsync()
+        {
+            var employees = await _directoryService.GetEmployeesAsync();
+
+            ResponsibleEmployeecomboBox.DataSource = employees;
+            ResponsibleEmployeecomboBox.DisplayMember = nameof(Employee.FullName);
+            ResponsibleEmployeecomboBox.ValueMember = nameof(Employee.Id);
+
+
+            var groups = await _directoryService.GetAnimalGroupsAsync();
+
+            GroupAnimalscomboBox.DataSource = groups;
+            GroupAnimalscomboBox.DisplayMember = nameof(AnimalGroup.Name);
+            GroupAnimalscomboBox.ValueMember = nameof(AnimalGroup.Id);
+        }
+
+        private async void StaticForm_Load(object sender, EventArgs e)
+        {
+            await LoadDirectoriesAsync();
         }
     }
 }

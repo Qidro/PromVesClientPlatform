@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StaticForm));
             formsPlot1 = new ScottPlot.WinForms.FormsPlot();
             Weighingbtn = new Button();
             lblConnectScale = new Label();
@@ -291,8 +292,10 @@
             Controls.Add(Weighingbtn);
             Controls.Add(formsPlot1);
             Font = new Font("Segoe UI", 9F);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "StaticForm";
             Text = "StaticForm";
+            Load += StaticForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
