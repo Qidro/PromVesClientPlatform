@@ -2,6 +2,7 @@
 using PromVesClientPlatform.DTO;
 using PromVesClientPlatform.Service;
 using PromVesClientPlatform.Service.ReceiptService;
+using PromVesClientPlatform.Service.ReceiptsService;
 using ScottPlot.MultiplotLayouts;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace PromVesClientPlatform
     public partial class ReceiptForm : Form
     {
         private readonly ReceiptService _receiptService;
+        private readonly ExcelReportService _excelReportService;
+        private List<ReceiptDtoExcel> ListReceiptExcel = new();
         private List<ReceiptDto> receiptList;
         //исходные данные картчоек из БД
         private List<CardsDto> cardsList = new();
@@ -45,12 +48,13 @@ namespace PromVesClientPlatform
         private decimal? QuantityOld;
         private string Operator;
         private decimal? Quantity;
-        public ReceiptForm(ReceiptService receiptService, ILogger<ReceiptForm> logger, CurrentUserService currentUserService)
+        public ReceiptForm(ReceiptService receiptService, ILogger<ReceiptForm> logger, CurrentUserService currentUserService, ExcelReportService excelReportService)
         {
             InitializeComponent();
             _receiptService = receiptService;
             _logger = logger;
             _currentUserService = currentUserService;
+            _excelReportService = excelReportService;
         }
 
         private async void ReceiptForm_Load(object sender, EventArgs e)
@@ -125,9 +129,18 @@ namespace PromVesClientPlatform
             dataGridViewСards.Columns["WeightGainOld"].HeaderText = "Привес (предыдущий)";
             dataGridViewСards.Columns["WeighingDate"].HeaderText = "Дата взвешивания (текущее)";
 
-            //Запрещаем редактировать только данные взвешивания и даты взешивания
+            //Запрещаем редактировать 
             dataGridViewСards.Columns["WeighingDate"].ReadOnly = true;
             dataGridViewСards.Columns["CurrentWeighing"].ReadOnly = true;
+            dataGridViewСards.Columns["GroupAnimals"].ReadOnly = true;
+            dataGridViewСards.Columns["AnimalNumber"].ReadOnly = true;
+            dataGridViewСards.Columns["CurrentWeighing"].ReadOnly = true;
+            dataGridViewСards.Columns["CurrentWeighingOld"].ReadOnly = true;
+            dataGridViewСards.Columns["DatePreviousWeighing"].ReadOnly = true;
+            dataGridViewСards.Columns["WeightGain"].ReadOnly = true;
+            dataGridViewСards.Columns["WeightGainOld"].ReadOnly = true;
+            dataGridViewСards.Columns["WeighingDate"].ReadOnly = true;
+
 
             dataGridViewСards.Columns["WeighingDate"].DefaultCellStyle.Format = "dd.MM.yyyy";
             dataGridViewСards.Columns["DatePreviousWeighing"].DefaultCellStyle.Format = "dd.MM.yyyy";
@@ -379,7 +392,7 @@ namespace PromVesClientPlatform
 
         }
         //сохранение квтиануии
-        private void btnSaveReceipt_Click(object sender, EventArgs e)
+        private async void btnSaveReceipt_Click(object sender, EventArgs e)
         {
             if (cardsList == null || cardsList.Count == 0)
             {
@@ -388,6 +401,46 @@ namespace PromVesClientPlatform
             }
             _logger.LogInformation($"Пользователь {_currentUserService.CurrentUser?.Name} нажал на кнопку сохранения квитанции");
             List<ReceiptDtoExcel> receiptExcel = new();
+            //перебираем колекцию
+            foreach (var card in cardsList)
+            {
+                receiptExcel.Add(new ReceiptDtoExcel
+                {
+                    GroupAnimals = card.GroupAnimals,
+                    Department = card.Department,
+                    Brigade = card.Brigade,
+                    ResponsibleEmployee = card.ResponsibleEmployee,
+                    AnimalNumber = card.AnimalNumber,
+                    Quantity = card.Quantity,
+                    QuantityOld = card.QuantityOld,
+                    CurrentWeighing = card.CurrentWeighing,
+                    CurrentWeighingOld = card.CurrentWeighingOld,
+                    WeightGain = card.WeightGain,
+                    WeightGainOld = card.WeightGainOld,
+                    WeighingDate = card.WeighingDate,
+                });
+            }
+
+            using SaveFileDialog dialog = new SaveFileDialog
+            {
+                Title = "Сохранить квитанцию",
+                Filter = "Excel (*.xlsx)|*.xlsx",
+                DefaultExt = "xlsx",
+                FileName = $"Квитанция_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx"
+            };
+
+            if (dialog.ShowDialog() != DialogResult.OK)
+                return;
+            //получаем результат операции по сохранению отчета
+            var result = await _excelReportService.SaveReport(receiptExcel, dialog.FileName);
+            //проверка результата
+            if (!result.Success)
+            {
+                MessageBox.Show(result.Message);
+                return;
+            }
+
+            MessageBox.Show("Квитанция успешно сохранена", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async void changeCardButton_Click(object sender, EventArgs e)
@@ -414,14 +467,58 @@ namespace PromVesClientPlatform
             {
                 MessageBox.Show($"Квитанция успешно сохранена", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else 
+            else
             {
                 MessageBox.Show($"Ошибка изменения квитанций, причина: {result.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //MessageBox.Show($"Не удалось распознать номер животного", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
 
 
 
         }
+
+        private void dataGridViewСards_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private async void btnPrintReceipt_Click(object sender, EventArgs e)
+        {
+            //проверка на выбора квитанции
+            if (cardsList?.Count > 0)
+            {
+                _logger.LogInformation($"Пользователь {_currentUserService.CurrentUser?.Name} нажал кнопку печати квитанции");
+                //перебор данных квитанции для значений DTO
+                foreach (var card in cardsList)
+                {
+                    ReceiptDtoExcel receiptExcel = new ReceiptDtoExcel
+                    {
+                        GroupAnimals = card.GroupAnimals,
+                        Department = card.Department,
+                        Brigade = card.Brigade,
+                        ResponsibleEmployee = card.ResponsibleEmployee,
+                        AnimalNumber = card.AnimalNumber,
+                        Quantity = card.Quantity,
+                        QuantityOld = card.QuantityOld,
+                        CurrentWeighing = card.CurrentWeighing,
+                        CurrentWeighingOld = card.CurrentWeighingOld,
+                        WeightGain = card.WeightGain,
+                        WeightGainOld = card.WeightGainOld,
+                        WeighingDate = card.WeighingDate,
+                    };
+                    ListReceiptExcel.Add(receiptExcel);
+                }
+                var result = await _excelReportService.CreateReport(ListReceiptExcel, OperatorReceipt);
+                if (result.Success == false)
+                {
+
+                }
+                ListReceiptExcel.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Выберите квитанцию для печати", "Предупрждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
-}
+}   

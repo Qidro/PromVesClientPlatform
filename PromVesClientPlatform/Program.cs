@@ -6,6 +6,7 @@ using PromVesClientPlatform.Service.AnimalWeighingService;
 using PromVesClientPlatform.Service.AuthorizationService;
 using PromVesClientPlatform.Service.ComPortSettingService;
 using PromVesClientPlatform.Service.ReceiptService;
+using PromVesClientPlatform.Service.ReceiptsService;
 using PromVesClientPlatform.Service.UserService;
 
 namespace PromVesClientPlatform
@@ -41,6 +42,7 @@ namespace PromVesClientPlatform
             services.AddScoped<ReceiptService>();
             services.AddScoped<TcpService>();
             services.AddScoped<AnimalWeighingService>();
+            services.AddScoped<ExcelReportService>();
             //регистрация одного экземпляра, чтобы все формы работали именно с ним
             services.AddSingleton<CurrentUserService>();
 

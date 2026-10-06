@@ -17,15 +17,15 @@ namespace PromVesClientPlatform.DTO
         //За кем прикреплены животные
         public string ResponsibleEmployee { get; set; }
         //номер животного или станка
-        public decimal AnimalNumber { get; set; }
+        public decimal? AnimalNumber { get; set; }
         //Количество
-        public decimal Quantity { get; set; }
+        public decimal? Quantity { get; set; }
         //Количество старое
-        public decimal QuantityOld { get; set; }
+        public decimal? QuantityOld { get; set; }
         //Привес
-        public decimal WeightGain { get; set; }
+        public decimal? WeightGain { get; set; }
         //Привес прошлый
-        public decimal WeightGainOld { get; set; }
+        public decimal? WeightGainOld { get; set; }
         //Дата взвешивания (текущее)
         public DateTime WeighingDate { get; set; }
         //Дата предыдущего взвешивания
@@ -33,7 +33,7 @@ namespace PromVesClientPlatform.DTO
         //текущее взвешивание
         public decimal CurrentWeighing { get; set; }
         //предыдущее взвешивание
-        public decimal CurrentWeighingOld { get; set; }
+        public decimal? CurrentWeighingOld { get; set; }
 
     }
 }

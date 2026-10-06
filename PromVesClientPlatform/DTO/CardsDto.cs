@@ -20,7 +20,7 @@ namespace PromVesClientPlatform.DTO
         //За кем прикреплены животные
         public string? ResponsibleEmployee { get; set; }
         //номер животного или станка
-        public decimal? AnimalNumber { get; set; }
+        public decimal AnimalNumber { get; set; }
         //Количество
         public decimal? Quantity { get; set; }
         //Количество старое

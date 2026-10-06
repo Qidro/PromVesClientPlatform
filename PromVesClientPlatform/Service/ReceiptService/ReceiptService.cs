@@ -69,7 +69,7 @@ namespace PromVesClientPlatform.Service.ReceiptService
                       Department = w.Department,
                       Brigade = w.Brigade,
                       ResponsibleEmployee = w.ResponsibleEmployee,
-                      AnimalNumber = w.AnimalNumber,
+                      AnimalNumber = w.AnimalNumber ?? 0m,
                       Quantity = w.Quantity,
                       QuantityOld = w.QuantityOld,
                       CurrentWeighing = w.CurrentWeighing,

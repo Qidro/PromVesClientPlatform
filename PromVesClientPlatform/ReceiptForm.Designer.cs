@@ -81,6 +81,7 @@
             dataGridViewСards.Name = "dataGridViewСards";
             dataGridViewСards.Size = new Size(949, 350);
             dataGridViewСards.TabIndex = 1;
+            dataGridViewСards.CellContentClick += dataGridViewСards_CellContentClick;
             // 
             // receiptInfoLabel
             // 
@@ -314,6 +315,7 @@
             btnPrintReceipt.TabIndex = 7;
             btnPrintReceipt.Text = "Распечатать квитанцию";
             btnPrintReceipt.UseVisualStyleBackColor = true;
+            btnPrintReceipt.Click += btnPrintReceipt_Click;
             // 
             // btnDeleteCard
             // 
