@@ -418,6 +418,7 @@ namespace PromVesClientPlatform
                     WeightGain = card.WeightGain,
                     WeightGainOld = card.WeightGainOld,
                     WeighingDate = card.WeighingDate,
+                    DateWeighingOld = card.DatePreviousWeighing,
                 });
             }
 
@@ -505,6 +506,7 @@ namespace PromVesClientPlatform
                         WeightGain = card.WeightGain,
                         WeightGainOld = card.WeightGainOld,
                         WeighingDate = card.WeighingDate,
+                        DateWeighingOld = card.DatePreviousWeighing,
                     };
                     ListReceiptExcel.Add(receiptExcel);
                 }

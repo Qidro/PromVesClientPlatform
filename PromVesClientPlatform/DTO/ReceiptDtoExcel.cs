@@ -29,7 +29,7 @@ namespace PromVesClientPlatform.DTO
         //Дата взвешивания (текущее)
         public DateTime WeighingDate { get; set; }
         //Дата предыдущего взвешивания
-        public DateTime DateWeighingOld { get; set; }
+        public DateTime? DateWeighingOld { get; set; }
         //текущее взвешивание
         public decimal CurrentWeighing { get; set; }
         //предыдущее взвешивание

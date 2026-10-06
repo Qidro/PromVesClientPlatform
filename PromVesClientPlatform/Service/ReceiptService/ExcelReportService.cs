@@ -132,6 +132,12 @@ namespace PromVesClientPlatform.Service.ReceiptsService
             ws.Cell("J3").Value = cards[0].GroupAnimals;
 
             ws.Cell("K4").Value = cards[0].ResponsibleEmployee;
+            // Даты взвешиваний
+            ws.Cell("L7").Value = cards[0].DateWeighingOld;
+            ws.Cell("U7").Value = cards[0].WeighingDate;
+
+            ws.Cell("L7").Style.DateFormat.Format = "dd.MM.yyyy";
+            ws.Cell("U7").Style.DateFormat.Format = "dd.MM.yyyy";
 
 
             // ==========================================
